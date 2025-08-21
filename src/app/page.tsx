@@ -1,103 +1,236 @@
-import Image from "next/image";
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import Image from 'next/image'
+import { Calendar, Trophy, Users, Target } from 'lucide-react'
 
-export default function Home() {
+const HomePage = () => {
+  const recentNews = [
+    {
+      id: 1,
+      title: "A Takımımız Yeni Sezona Hazır",
+      date: "20 Ağustos 2025",
+      excerpt: "A takımımız yeni sezon için antrenman kampına başladı. Teknik direktörümüz ve oyuncularımız büyük hedeflerle...",
+      image: "/news-1.jpg"
+    },
+    {
+      id: 2,
+      title: "U18 B Ligi'nde Büyük Başarı",
+      date: "18 Ağustos 2025",
+      excerpt: "U18 B Ligi takımımız sezonun ilk maçında rakibini 4-1 yenerek müthiş bir galibiyet aldı...",
+      image: "/news-2.jpg"
+    },
+    {
+      id: 3,
+      title: "Genç Yeteneklerimiz Dikkat Çekiyor",
+      date: "15 Ağustos 2025",
+      excerpt: "U16 ve U17 takımlarımızdan genç oyuncularımız bölge seçmelerinde göz doldurdu...",
+      image: "/news-3.jpg"
+    }
+  ];
+
+  const upcomingMatches = [
+    {
+      id: 1,
+      team: "A Takım",
+      opponent: "Beylerbeyi SK",
+      date: "26 Ağustos 2025",
+      time: "15:00",
+      venue: "İcadiye Sahası",
+      league: "Süper Amatör"
+    },
+    {
+      id: 2,
+      team: "U18 B Ligi",
+      opponent: "Kısıklı SK",
+      date: "28 Ağustos 2025",
+      time: "14:00",
+      venue: "Deplasman",
+      league: "U18 B Ligi"
+    },
+    {
+      id: 3,
+      team: "U17 B Ligi",
+      opponent: "Çengelköy SK",
+      date: "30 Ağustos 2025",
+      time: "16:30",
+      venue: "İcadiye Sahası",
+      league: "U17 B Ligi"
+    }
+  ];
+
+  const teamStats = [
+    { label: "A Takım", value: "25", description: "Aktif Oyuncu" },
+    { label: "U18 B Ligi", value: "22", description: "Genç Yetenek" },
+    { label: "U17 B Ligi", value: "20", description: "Umut Vadeden" },
+    { label: "U16 B Ligi", value: "18", description: "Gelecek Yıldızlar" }
+  ];
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      <main>
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative container mx-auto px-4 text-center">
+            <div className="max-w-4xl mx-auto">
+              <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl p-2">
+                <Image
+                  src="/logo.png"
+                  alt="Üsküdar İcadiye Spor"
+                  width={120}
+                  height={120}
+                  className="object-contain"
+                />
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">
+                Üsküdar İcadiye Spor
+              </h1>
+              <p className="text-xl md:text-2xl text-red-100 mb-8">
+                Gelenekten Geleceğe, Spor Ruhuyla
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                {teamStats.map((stat, index) => (
+                  <div key={index} className="bg-white/20 backdrop-blur-sm rounded-lg p-4 hover:bg-white/30 transition-all">
+                    <div className="text-2xl font-bold">{stat.value}</div>
+                    <div className="text-sm font-medium">{stat.label}</div>
+                    <div className="text-xs text-red-100 mt-1">{stat.description}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        {/* İstatistikler */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div className="flex flex-col items-center">
+                <Trophy className="w-12 h-12 text-red-600 mb-4" />
+                <div className="text-3xl font-bold text-gray-900">74</div>
+                <div className="text-gray-600">Yıllık Deneyim</div>
+              </div>
+              <div className="flex flex-col items-center">
+                <Users className="w-12 h-12 text-blue-600 mb-4" />
+                <div className="text-3xl font-bold text-gray-900">4</div>
+                <div className="text-gray-600">Farklı Takım</div>
+              </div>
+              <div className="flex flex-col items-center">
+                <Target className="w-12 h-12 text-green-600 mb-4" />
+                <div className="text-3xl font-bold text-gray-900">85+</div>
+                <div className="text-gray-600">Aktif Sporcu</div>
+              </div>
+              <div className="flex flex-col items-center">
+                <Calendar className="w-12 h-12 text-purple-600 mb-4" />
+                <div className="text-3xl font-bold text-gray-900">1951</div>
+                <div className="text-gray-600">Kuruluş Yılı</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="container mx-auto px-4 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Son Haberler */}
+            <section>
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-3xl font-bold text-gray-900">Son Haberler</h2>
+                <a href="/haberler" className="text-red-600 hover:text-red-800 font-medium">
+                  Tümünü Gör →
+                </a>
+              </div>
+              <div className="space-y-6">
+                {recentNews.map((news) => (
+                  <article key={news.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold mb-2 text-gray-900 hover:text-red-600 cursor-pointer">
+                        {news.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-3 flex items-center">
+                        <Calendar size={16} className="mr-2" />
+                        {news.date}
+                      </p>
+                      <p className="text-gray-700 leading-relaxed">{news.excerpt}</p>
+                      <button className="text-red-600 hover:text-red-800 font-medium mt-4 inline-flex items-center">
+                        Devamını Oku →
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {/* Yaklaşan Maçlar */}
+            <section>
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-3xl font-bold text-gray-900">Yaklaşan Maçlar</h2>
+                <a href="/maclar" className="text-red-600 hover:text-red-800 font-medium">
+                  Tüm Maçlar →
+                </a>
+              </div>
+              <div className="space-y-4">
+                {upcomingMatches.map((match) => (
+                  <div key={match.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-medium">
+                        {match.league}
+                      </span>
+                      <span className="text-sm text-gray-500">{match.team}</span>
+                    </div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div>
+                        <h3 className="font-bold text-gray-900">
+                          ÜİSK vs {match.opponent}
+                        </h3>
+                        <p className="text-gray-600 text-sm">{match.venue}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-bold text-red-600">{match.date}</p>
+                        <p className="text-gray-600 text-sm">{match.time}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Hızlı Aksiyonlar */}
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <a href="/maclar" className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 transition-colors text-center font-medium">
+                  Fikstür
+                </a>
+                <a href="/takimlar" className="border-2 border-red-600 text-red-600 py-3 px-6 rounded-lg hover:bg-red-600 hover:text-white transition-colors text-center font-medium">
+                  Takımlar
+                </a>
+              </div>
+            </section>
+          </div>
         </div>
+
+        {/* CTA Section */}
+        <section className="bg-gray-900 text-white py-16">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Üsküdar İcadiye Spor Ailesi</h2>
+            <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+              1951'den beri Üsküdar'ın gururu olan kulübümüze katılın. 
+              Gençlerimizi spora yönlendiriyor, gelecek nesillere spor kültürünü aktarıyoruz.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/iletisim" className="bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-colors font-medium">
+                Bize Katılın
+              </a>
+              <a href="/takimlar" className="border-2 border-white text-white py-3 px-8 rounded-lg hover:bg-white hover:text-gray-900 transition-colors font-medium">
+                Takımları İncele
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      <Footer />
     </div>
   );
-}
+};
+
+export default HomePage;
