@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { MapPin, Phone, Mail, Clock, Send, User, MessageSquare, Instagram, Facebook, Twitter } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, User, MessageSquare, Instagram, Facebook } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -49,9 +49,8 @@ const ContactPage = () => {
       icon: MapPin,
       title: "Adres",
       details: [
-        "İcadiye Mahallesi",
-        "Üsküdar/İstanbul",
-        "34684"
+        "İcadiye, Cemil Meriç Sk. No:2",
+        "34674 Üsküdar/İstanbul"
       ],
       color: "text-red-600"
     },
@@ -59,8 +58,7 @@ const ContactPage = () => {
       icon: Phone,
       title: "Telefon",
       details: [
-        "+90 (216) 123 45 67",
-        "+90 (216) 123 45 68"
+        "0216 342 89 27"
       ],
       color: "text-green-600"
     },
@@ -90,7 +88,6 @@ const ContactPage = () => {
     { value: "membership", label: "Üyelik İşlemleri" },
     { value: "youth", label: "Altyapı/Genç Takımlar" },
     { value: "sponsorship", label: "Sponsorluk" },
-    { value: "facilities", label: "Tesis Kiralama" },
     { value: "media", label: "Basın/Medya" }
   ];
 
@@ -108,13 +105,6 @@ const ContactPage = () => {
       url: "#", 
       handle: "Üsküdar İcadiye Spor",
       color: "hover:bg-blue-600"
-    },
-    { 
-      icon: Twitter, 
-      name: "Twitter", 
-      url: "#", 
-      handle: "@uskudaricadiye",
-      color: "hover:bg-blue-400"
     }
   ];
 
@@ -190,7 +180,6 @@ const ContactPage = () => {
               <ul className="space-y-2 text-sm text-red-700">
                 <li>• Üyelik başvuruları her yaş için açıktır</li>
                 <li>• Antrenmanları izlemek için randevu alabilirsiniz</li>
-                <li>• Tesis kiralamalar için önceden rezervasyon gereklidir</li>
                 <li>• Sponsorluk teklifleri için yönetim ile iletişime geçin</li>
               </ul>
             </div>
@@ -350,15 +339,28 @@ const ContactPage = () => {
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900 text-center">Konumumuz</h2>
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="aspect-video bg-gray-200 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin size={48} className="text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">
-                  İcadiye Mahallesi, Üsküdar/İstanbul
-                </p>
-                <p className="text-sm text-gray-500 mt-2">
-                  Harita entegrasyonu yakında...
-                </p>
+            <div className="aspect-video">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.6899842543436!2d29.031334516041!3d41.02702689929607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7003bb4ac5b%3A0xcf6ddfbc39fbc328!2s%C4%B0cadiye%20Spor%20Kul%C3%BCb%C3%BC!5e0!3m2!1str!2str!4v1692784800000!5m2!1str!2str"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="İcadiye Spor Kulübü Konum"
+              ></iframe>
+            </div>
+            <div className="p-6 bg-gray-50">
+              <div className="flex items-center justify-center space-x-8 text-sm text-gray-600">
+                <div className="flex items-center space-x-2">
+                  <MapPin size={16} className="text-red-600" />
+                  <span>İcadiye, Cemil Meriç Sk. No:2, 34674 Üsküdar/İstanbul</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Phone size={16} className="text-green-600" />
+                  <span>0216 342 89 27</span>
+                </div>
               </div>
             </div>
           </div>

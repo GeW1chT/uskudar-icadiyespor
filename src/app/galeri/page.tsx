@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Camera, Calendar, Users, Trophy, Play, X } from 'lucide-react';
+import { Camera, Calendar, Users, Trophy, Play, X, Image } from 'lucide-react';
 
 const GalleryPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -20,100 +20,36 @@ const GalleryPage = () => {
   const galleryItems = [
     {
       id: 1,
-      title: "A Takım - Beylerbeyi SK Maçı",
-      description: "Evimizde oynanan heyecanlı maçtan kareler",
+      title: "A Takım Antrenman Çalışması",
+      description: "A takımımızın antrenman çalışmasından kareler",
       date: "2025-08-20",
-      category: "matches",
+      category: "training",
       type: "image",
-      thumbnail: "/gallery/match-1-thumb.jpg",
-      fullImage: "/gallery/match-1.jpg",
+      thumbnail: "/gallery/a-team-training.jpg",
+      fullImage: "/gallery/a-team-training.jpg",
       team: "A Takım"
     },
     {
       id: 2,
-      title: "U18 Takımı Antrenman",
-      description: "U18 takımımızın yoğun antrenman çalışması",
+      title: "U18 Takım Fotoğrafı",
+      description: "U18 takımımızın resmi takım fotoğrafı",
       date: "2025-08-18",
       category: "training",
       type: "image",
-      thumbnail: "/gallery/training-1-thumb.jpg",
-      fullImage: "/gallery/training-1.jpg",
+      thumbnail: "/gallery/u18-team-photo.jpg",
+      fullImage: "/gallery/u18-team-photo.jpg",
       team: "U18"
     },
     {
       id: 3,
-      title: "Yeni Sezon Açılış Töreni",
-      description: "2025 sezonunu açış törenimizden muhteşem anlar",
+      title: "Genç Takımımız",
+      description: "Altyapı takımımızdan kareler",
       date: "2025-08-15",
-      category: "events",
-      type: "video",
-      thumbnail: "/gallery/opening-thumb.jpg",
-      videoUrl: "/gallery/opening-ceremony.mp4",
-      duration: "5:23"
-    },
-    {
-      id: 4,
-      title: "U17 Galibiyet Sevinci",
-      description: "2-0'lık galibiyetin ardından sevinç anları",
-      date: "2025-08-12",
-      category: "matches",
-      type: "image",
-      thumbnail: "/gallery/u17-victory-thumb.jpg",
-      fullImage: "/gallery/u17-victory.jpg",
-      team: "U17"
-    },
-    {
-      id: 5,
-      title: "Yeni Antrenman Tesisleri",
-      description: "Modern antrenman sahalarımızın açılışı",
-      date: "2025-08-10",
-      category: "facilities",
-      type: "image",
-      thumbnail: "/gallery/facilities-thumb.jpg",
-      fullImage: "/gallery/facilities.jpg"
-    },
-    {
-      id: 6,
-      title: "U16 Takım Fotoğrafı",
-      description: "U16 takımımızın yeni sezon takım fotoğrafı",
-      date: "2025-08-08",
       category: "training",
       type: "image",
-      thumbnail: "/gallery/u16-team-thumb.jpg",
-      fullImage: "/gallery/u16-team.jpg",
-      team: "U16"
-    },
-    {
-      id: 7,
-      title: "Dostluk Maçı Özetleri",
-      description: "Hazırlık maçlarından en güzel anlar",
-      date: "2025-08-05",
-      category: "matches",
-      type: "video",
-      thumbnail: "/gallery/friendly-match-thumb.jpg",
-      videoUrl: "/gallery/friendly-match.mp4",
-      duration: "3:45"
-    },
-    {
-      id: 8,
-      title: "Kulüp Genel Kurulu",
-      description: "Yıllık genel kurul toplantımızdan kareler",
-      date: "2025-08-01",
-      category: "events",
-      type: "image",
-      thumbnail: "/gallery/general-assembly-thumb.jpg",
-      fullImage: "/gallery/general-assembly.jpg"
-    },
-    {
-      id: 9,
-      title: "A Takım Kondisyon Antrenmanı",
-      description: "Sezon öncesi kondisyon çalışmalarından",
-      date: "2025-07-28",
-      category: "training",
-      type: "image",
-      thumbnail: "/gallery/conditioning-thumb.jpg",
-      fullImage: "/gallery/conditioning.jpg",
-      team: "A Takım"
+      thumbnail: "/gallery/youth-team.jpg",
+      fullImage: "/gallery/youth-team.jpg",
+      team: "Altyapı"
     }
   ];
 
@@ -134,8 +70,8 @@ const GalleryPage = () => {
     switch(team) {
       case 'A Takım': return 'bg-yellow-100 text-yellow-800';
       case 'U18': return 'bg-blue-100 text-blue-800';
-      case 'U17': return 'bg-green-100 text-green-800';
-      case 'U16': return 'bg-purple-100 text-purple-800';
+      case 'U16': return 'bg-green-100 text-green-800';
+      case 'Altyapı': return 'bg-purple-100 text-purple-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -186,6 +122,9 @@ const GalleryPage = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           <div className="bg-white rounded-lg shadow-md p-4 text-center">
             <Camera className="w-8 h-8 text-red-600 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-gray-900">
+              {galleryItems.filter(item => item.type === 'image').length}
+            </div>
             <div className="text-sm text-gray-600">Fotoğraf</div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-4 text-center">
@@ -212,67 +151,120 @@ const GalleryPage = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredItems.map((item) => (
-            <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
-              <div 
-                className="relative aspect-video bg-gray-200 overflow-hidden"
-                onClick={() => openLightbox(item)}
-              >
-                {/* Placeholder for thumbnail */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-                  {item.type === 'video' ? (
-                    <div className="flex flex-col items-center text-white">
-                      <Play size={32} className="mb-2" />
-                      <span className="text-sm bg-black/50 px-2 py-1 rounded">
-                        {item.duration}
-                      </span>
-                    </div>
-                  ) : (
-                    <Camera size={32} className="text-gray-500" />
-                  )}
-                </div>
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {filteredItems.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredItems.map((item) => (
+              <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                <div 
+                  className="relative aspect-video bg-gray-200 overflow-hidden"
+                  onClick={() => openLightbox(item)}
+                >
+                  {/* Real Image */}
+                  <img 
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      target.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  
+                  {/* Fallback placeholder */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center hidden">
                     {item.type === 'video' ? (
-                      <Play size={40} className="text-white" />
+                      <div className="flex flex-col items-center text-white">
+                        <Play size={32} className="mb-2" />
+                        <span className="text-sm bg-black/50 px-2 py-1 rounded">
+                          {item.duration}
+                        </span>
+                      </div>
                     ) : (
-                      <Camera size={40} className="text-white" />
+                      <Camera size={32} className="text-gray-500" />
                     )}
                   </div>
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {item.type === 'video' ? (
+                        <Play size={40} className="text-white" />
+                      ) : (
+                        <Camera size={40} className="text-white" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs text-gray-500">
+                      {formatDate(item.date)}
+                    </span>
+                    {item.team && (
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${getTeamColor(item.team)}`}>
+                        {item.team}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1 leading-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
               </div>
-              
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs text-gray-500">
-                    {formatDate(item.date)}
-                  </span>
-                  {item.team && (
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${getTeamColor(item.team)}`}>
-                      {item.team}
-                    </span>
-                  )}
+            ))}
+          </div>
+        ) : (
+          /* Empty Gallery Message */
+          <div className="bg-white rounded-lg shadow-md p-12 text-center">
+            <div className="text-gray-400 mb-6">
+              <Image size={80} className="mx-auto mb-4 opacity-50" />
+            </div>
+            <h3 className="text-2xl font-semibold text-gray-600 mb-4">
+              {selectedCategory === 'all' ? 'Henüz Galeri İçeriği Bulunmuyor' : `${categories.find(c => c.id === selectedCategory)?.label} kategorisinde içerik bulunmuyor`}
+            </h3>
+            <p className="text-gray-500 text-lg mb-6 max-w-md mx-auto">
+              Kulübümüzden fotoğraf ve videolar yakında paylaşılacak. 
+              Maçlarımız, antrenmanlarımız ve özel anlarımızı kaçırmayın.
+            </p>
+            <div className="bg-red-50 rounded-lg p-6 max-w-lg mx-auto">
+              <h4 className="text-red-800 font-semibold mb-3">Yakında Eklenecekler</h4>
+              <div className="grid grid-cols-2 gap-4 text-sm text-red-700">
+                <div className="flex items-center space-x-2">
+                  <Trophy size={16} />
+                  <span>Maç Fotoğrafları</span>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-1 leading-tight">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {item.description}
-                </p>
+                <div className="flex items-center space-x-2">
+                  <Users size={16} />
+                  <span>Antrenman Videoları</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Calendar size={16} />
+                  <span>Etkinlik Görselleri</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Camera size={16} />
+                  <span>Tesis Turları</span>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
 
-        {/* Load More Button */}
-        <div className="text-center mt-12">
-          <button className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium">
-            Daha Fazla İçerik Yükle
-          </button>
-        </div>
+        {/* Load More Button - only show if there are items */}
+        {filteredItems.length > 0 && (
+          <div className="text-center mt-12">
+            <button className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium">
+              Daha Fazla İçerik Yükle
+            </button>
+          </div>
+        )}
+
+
       </div>
 
       {/* Lightbox Modal */}
@@ -300,8 +292,20 @@ const GalleryPage = () => {
             ) : (
               <div className="bg-white rounded-lg p-6 max-w-2xl">
                 <h3 className="text-xl font-bold mb-4">{selectedImage.title}</h3>
-                <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-                  <Camera size={48} className="text-gray-500" />
+                <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-4">
+                  <img 
+                    src={selectedImage.fullImage}
+                    alt={selectedImage.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      target.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <div className="w-full h-full flex items-center justify-center hidden">
+                    <Camera size={48} className="text-gray-500" />
+                  </div>
                 </div>
                 <p className="text-gray-600">{selectedImage.description}</p>
                 <div className="mt-4 text-sm text-gray-500">

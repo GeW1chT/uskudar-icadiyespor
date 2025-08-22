@@ -5,64 +5,44 @@ import { Calendar, Trophy, Users, Target } from 'lucide-react'
 
 const HomePage = () => {
   const recentNews = [
-    {
-      id: 1,
-      title: "A Takımımız Yeni Sezona Hazır",
-      date: "20 Ağustos 2025",
-      excerpt: "A takımımız yeni sezon için antrenman kampına başladı. Teknik direktörümüz ve oyuncularımız büyük hedeflerle...",
-      image: "/news-1.jpg"
-    },
-    {
-      id: 2,
-      title: "U18 B Ligi'nde Büyük Başarı",
-      date: "18 Ağustos 2025",
-      excerpt: "U18 B Ligi takımımız sezonun ilk maçında rakibini 4-1 yenerek müthiş bir galibiyet aldı...",
-      image: "/news-2.jpg"
-    },
-    {
-      id: 3,
-      title: "Genç Yeteneklerimiz Dikkat Çekiyor",
-      date: "15 Ağustos 2025",
-      excerpt: "U16 ve U17 takımlarımızdan genç oyuncularımız bölge seçmelerinde göz doldurdu...",
-      image: "/news-3.jpg"
-    }
+    // Gerçek haberler buraya eklenecek
   ];
 
   const upcomingMatches = [
     {
       id: 1,
       team: "A Takım",
-      opponent: "Beylerbeyi SK",
-      date: "26 Ağustos 2025",
-      time: "15:00",
-      venue: "İcadiye Sahası",
-      league: "Süper Amatör"
+      opponent: "Vadı Spor",
+      date: "23 Ağustos 2025",
+      time: "18:00",
+      venue: "Turnuva Sahası",
+      league: "18. Amatör Turnuva"
     },
     {
       id: 2,
-      team: "U18 B Ligi",
-      opponent: "Kısıklı SK",
-      date: "28 Ağustos 2025",
-      time: "14:00",
-      venue: "Deplasman",
-      league: "U18 B Ligi"
+      team: "A Takım",
+      opponent: "Üsküdar Altınşehir",
+      date: "29 Ağustos 2025",
+      time: "20:00",
+      venue: "Turnuva Sahası",
+      league: "18. Amatör Turnuva"
     },
     {
       id: 3,
-      team: "U17 B Ligi",
-      opponent: "Çengelköy SK",
-      date: "30 Ağustos 2025",
-      time: "16:30",
-      venue: "İcadiye Sahası",
-      league: "U17 B Ligi"
+      team: "A Takım",
+      opponent: "Ünalan S.K.",
+      date: "6 Eylül 2025",
+      time: "18:00",
+      venue: "Turnuva Sahası",
+      league: "18. Amatör Turnuva"
     }
   ];
 
   const teamStats = [
-    { label: "A Takım", value: "25", description: "Aktif Oyuncu" },
-    { label: "U18 B Ligi", value: "22", description: "Genç Yetenek" },
-    { label: "U17 B Ligi", value: "20", description: "Umut Vadeden" },
-    { label: "U16 B Ligi", value: "18", description: "Gelecek Yıldızlar" }
+    { label: "A Takım", value: "23", description: "Aktif Oyuncu" },
+    { label: "U18 Takımı", value: "6", description: "Genç Yetenek" },
+    { label: "U16 Takımı", value: "6", description: "Gelecek Yıldızlar" },
+    { label: "Toplam", value: "35", description: "Kulüp Oyuncusu" }
   ];
 
   return (
@@ -75,7 +55,7 @@ const HomePage = () => {
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative container mx-auto px-4 text-center">
             <div className="max-w-4xl mx-auto">
-              <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl p-2">
+              <div className="w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl overflow-hidden bg-white">
                 <Image
                   src="/logo.png"
                   alt="Üsküdar İcadiye Spor"
@@ -114,12 +94,12 @@ const HomePage = () => {
               </div>
               <div className="flex flex-col items-center">
                 <Users className="w-12 h-12 text-blue-600 mb-4" />
-                <div className="text-3xl font-bold text-gray-900">4</div>
+                <div className="text-3xl font-bold text-gray-900">3</div>
                 <div className="text-gray-600">Farklı Takım</div>
               </div>
               <div className="flex flex-col items-center">
                 <Target className="w-12 h-12 text-green-600 mb-4" />
-                <div className="text-3xl font-bold text-gray-900">85+</div>
+                <div className="text-3xl font-bold text-gray-900">35+</div>
                 <div className="text-gray-600">Aktif Sporcu</div>
               </div>
               <div className="flex flex-col items-center">
@@ -142,23 +122,30 @@ const HomePage = () => {
                 </a>
               </div>
               <div className="space-y-6">
-                {recentNews.map((news) => (
-                  <article key={news.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2 text-gray-900 hover:text-red-600 cursor-pointer">
-                        {news.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-3 flex items-center">
-                        <Calendar size={16} className="mr-2" />
-                        {news.date}
-                      </p>
-                      <p className="text-gray-700 leading-relaxed">{news.excerpt}</p>
-                      <button className="text-red-600 hover:text-red-800 font-medium mt-4 inline-flex items-center">
-                        Devamını Oku →
-                      </button>
-                    </div>
-                  </article>
-                ))}
+                {recentNews.length > 0 ? (
+                  recentNews.map((news) => (
+                    <article key={news.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold mb-2 text-gray-900 hover:text-red-600 cursor-pointer">
+                          {news.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-3 flex items-center">
+                          <Calendar size={16} className="mr-2" />
+                          {news.date}
+                        </p>
+                        <p className="text-gray-700 leading-relaxed">{news.excerpt}</p>
+                        <button className="text-red-600 hover:text-red-800 font-medium mt-4 inline-flex items-center">
+                          Devamını Oku →
+                        </button>
+                      </div>
+                    </article>
+                  ))
+                ) : (
+                  <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                    <h3 className="text-lg font-semibold text-gray-600 mb-2">Yakında Haberler</h3>
+                    <p className="text-gray-500">Kulübümüzden son haberler yakında burada yer alacak.</p>
+                  </div>
+                )}
               </div>
             </section>
 

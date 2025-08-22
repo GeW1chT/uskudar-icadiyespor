@@ -3,92 +3,108 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Users, Trophy, Star, Calendar, Award } from 'lucide-react';
+import { Users, Trophy, Star } from 'lucide-react';
+
+interface Team {
+  title: string;
+  description: string;
+  league: string;
+  players: Array<{
+    name: string;
+    position: string;
+    number: number;
+    age: number;
+    experience: string;
+  }>;
+  staff: Array<{
+    name: string;
+    role: string;
+  }>;
+}
+
+interface Teams {
+  [key: string]: Team;
+}
 
 const TeamsPage = () => {
   const [activeTab, setActiveTab] = useState('a-team');
 
-  const teams = {
+  const teams: Teams = {
     'a-team': {
       title: "A Takım",
       description: "Kulübümüzün deneyimli ve başarılı takımı",
-      league: "Süper Amatör Ligi",
+      league: "18. Amatör Lig",
       players: [
-        { name: "Mehmet Yılmaz", position: "Kaleci", number: 1, age: 28, experience: "5 yıl" },
-        { name: "Ali Demir", position: "Sağ Bek", number: 2, age: 26, experience: "4 yıl" },
-        { name: "Hasan Kaya", position: "Stoper", number: 3, age: 24, experience: "3 yıl" },
-        { name: "Murat Şen", position: "Sol Bek", number: 4, age: 25, experience: "4 yıl" },
-        { name: "Okan Şahin", position: "Def. Orta Saha", number: 6, age: 25, experience: "6 yıl" },
-        { name: "Emre Özkan", position: "Orta Saha", number: 8, age: 27, experience: "7 yıl" },
-        { name: "Burak Arslan", position: "Kanat", number: 7, age: 23, experience: "2 yıl" },
-        { name: "Kemal Yıldız", position: "Kanat", number: 11, age: 24, experience: "3 yıl" },
-        { name: "Ahmet Kara", position: "Forvet", number: 9, age: 26, experience: "5 yıl" },
-        { name: "Serkan Polat", position: "Forvet", number: 10, age: 29, experience: "8 yıl" }
+        { name: "Ömer Faruk Uyar", position: "Kaleci", number: 1, age: 18, experience: "2 yıl" },
+        { name: "Rafet Bintekin", position: "Kaleci", number: 12, age: 17, experience: "1 yıl" },
+        { name: "Salih Kocaoğlu", position: "Sağ Bek", number: 3, age: 20, experience: "4 yıl" },
+        { name: "Emirhan Bulut", position: "Sağ Bek", number: 4, age: 19, experience: "3 yıl" },
+        { name: "Fatih Çakırlıkoşan", position: "Sağ Bek", number: 5, age: 16, experience: "2 yıl" },
+        { name: "Yasin Göz", position: "Sol Bek", number: 6, age: 18, experience: "2 yıl" },
+        { name: "Kürşat Aktaş", position: "Sol Bek", number: 7, age: 17, experience: "1 yıl" },
+        { name: "Arda Ömürdinç", position: "Stoper", number: 8, age: 18, experience: "2 yıl" },
+        { name: "Emirhan Caner", position: "Stoper", number: 9, age: 19, experience: "3 yıl" },
+        { name: "Berke Bozali", position: "Stoper", number: 10, age: 16, experience: "2 yıl" },
+        { name: "Yağız Enes Özdemir", position: "Stoper", number: 11, age: 18, experience: "3 yıl" },
+        { name: "Metin Mert Öztürk", position: "Stoper", number: 12, age: 24, experience: "4 yıl" },
+        { name: "Arda Yücel", position: "Orta Saha", number: 13, age: 19, experience: "4 yıl" },
+        { name: "Mehmetiz Hirtani", position: "Orta Saha", number: 14, age: 16, experience: "2 yıl" },
+        { name: "Tevfik Efe Aktaş", position: "Orta Saha", number: 15, age: 20, experience: "4 yıl" },
+        { name: "Beytullah Efe Tanrıkulu", position: "Orta Saha", number: 16, age: 16, experience: "2 yıl" },
+        { name: "Muhammet Costel Karakafa", position: "Kanat/Forvet", number: 17, age: 20, experience: "3 yıl" },
+        { name: "Onur Güllüoğlu", position: "Kanat", number: 18, age: 18, experience: "1 yıl" },
+        { name: "Ahmet Muhammet Aylan", position: "Forvet", number: 19, age: 18, experience: "2 yıl" },
+        { name: "Kerem Yaşır Asin", position: "Sağ Kanat", number: 20, age: 17, experience: "2 yıl" },
+        { name: "Sarp Sezer", position: "Sağ Kanat", number: 21, age: 17, experience: "2 yıl" },
+        { name: "Mustafa Efe Doğan", position: "Forvet", number: 22, age: 18, experience: "1 yıl" },
+        { name: "Abdulkadir Çetinkaya", position: "Forvet", number: 23, age: 18, experience: "1 yıl" }
       ],
       staff: [
-        { name: "Ahmet Koç", role: "Baş Antrenör", experience: "12 yıl" },
-        { name: "Selim Aydın", role: "Yardımcı Antrenör", experience: "8 yıl" },
-        { name: "Dr. Fatma Gürel", role: "Fizyoterapist", experience: "6 yıl" },
-        { name: "Cengiz Özdemir", role: "Kondisyoner", experience: "4 yıl" }
+        { name: "Ersin Keskin", role: "Teknik Direktör" },
+        { name: "Ümit Bekoğlu", role: "Antrenör" },
+        { name: "Murat Ergün", role: "Futbol Direktörü" }
       ]
     },
     'u18': {
-      title: "U18 B Ligi",
+      title: "U18 Takımı",
       description: "18 yaş altı yetenekli gençlerimiz",
-      league: "U18 B Ligi",
+      league: "U18 Ligi",
       players: [
-        { name: "Cem Aktaş", position: "Kaleci", number: 1, age: 18, experience: "2 yıl" },
-        { name: "Onur Bilgin", position: "Defans", number: 4, age: 17, experience: "1 yıl" },
-        { name: "Kaan Öztürk", position: "Orta Saha", number: 6, age: 18, experience: "3 yıl" },
-        { name: "Emir Çelik", position: "Forvet", number: 11, age: 17, experience: "2 yıl" },
-        { name: "Yusuf Kaya", position: "Defans", number: 3, age: 18, experience: "2 yıl" },
-        { name: "Eren Demir", position: "Orta Saha", number: 8, age: 17, experience: "1 yıl" }
+        { name: "Ahmet Yılmaz", position: "Kaleci", number: 1, age: 17, experience: "2 yıl" },
+        { name: "Mehmet Özkan", position: "Defans", number: 2, age: 18, experience: "3 yıl" },
+        { name: "Ali Kaya", position: "Defans", number: 3, age: 17, experience: "2 yıl" },
+        { name: "Burak Demir", position: "Orta Saha", number: 4, age: 18, experience: "2 yıl" },
+        { name: "Emre Aydın", position: "Orta Saha", number: 5, age: 17, experience: "1 yıl" },
+        { name: "Can Şahin", position: "Forvet", number: 6, age: 18, experience: "3 yıl" }
       ],
       staff: [
-        { name: "İsmail Erdoğan", role: "Antrenör", experience: "6 yıl" },
-        { name: "Murat Yıldız", role: "Kondisyoner", experience: "3 yıl" }
-      ]
-    },
-    'u17': {
-      title: "U17 B Ligi",
-      description: "17 yaş altı umut vadeden gençler",
-      league: "U17 B Ligi",
-      players: [
-        { name: "Batuhan Kır", position: "Kaleci", number: 1, age: 16, experience: "1 yıl" },
-        { name: "Arda Şen", position: "Defans", number: 5, age: 16, experience: "2 yıl" },
-        { name: "Ege Tan", position: "Orta Saha", number: 7, age: 15, experience: "1 yıl" },
-        { name: "Kerem Uz", position: "Forvet", number: 9, age: 16, experience: "1 yıl" },
-        { name: "Berat Aydın", position: "Defans", number: 2, age: 16, experience: "1 yıl" },
-        { name: "Can Özgür", position: "Orta Saha", number: 10, age: 17, experience: "2 yıl" }
-      ],
-      staff: [
-        { name: "Cengiz Polat", role: "Antrenör", experience: "4 yıl" },
-        { name: "Hakan Yılmaz", role: "Yardımcı Antrenör", experience: "2 yıl" }
+        { name: "Ümit Bekoğlu", role: "Teknik Direktör" },
+        { name: "Murat Ergün", role: "Futbol Direktörü" }
       ]
     },
     'u16': {
-      title: "U16 B Ligi",
+      title: "U16 Takımı",
       description: "16 yaş altı gelecek yıldızlarımız",
-      league: "U16 B Ligi",
+      league: "U16 Ligi",
       players: [
-        { name: "Ömer Kaya", position: "Kaleci", number: 1, age: 15, experience: "6 ay" },
-        { name: "Deniz Aktaş", position: "Defans", number: 3, age: 16, experience: "1 yıl" },
-        { name: "Rıza Güven", position: "Orta Saha", number: 6, age: 15, experience: "8 ay" },
-        { name: "Alp Kırmızı", position: "Forvet", number: 9, age: 16, experience: "1 yıl" },
-        { name: "Mert Beyaz", position: "Defans", number: 4, age: 15, experience: "6 ay" },
-        { name: "Efe Sarı", position: "Kanat", number: 11, age: 16, experience: "1 yıl" }
+        { name: "Ömer Kaya", position: "Kaleci", number: 1, age: 15, experience: "1 yıl" },
+        { name: "Deniz Aktaş", position: "Defans", number: 2, age: 16, experience: "2 yıl" },
+        { name: "Rıza Güven", position: "Orta Saha", number: 3, age: 15, experience: "1 yıl" },
+        { name: "Alp Kırmızı", position: "Forvet", number: 4, age: 16, experience: "2 yıl" },
+        { name: "Mert Beyaz", position: "Defans", number: 5, age: 15, experience: "1 yıl" },
+        { name: "Efe Sarı", position: "Kanat", number: 6, age: 16, experience: "1 yıl" }
       ],
       staff: [
-        { name: "Orhan Demirel", role: "Antrenör", experience: "5 yıl" }
+        { name: "Ümit Bekoğlu", role: "Teknik Direktör" },
+        { name: "Murat Ergün", role: "Futbol Direktörü" }
       ]
     }
   };
 
   const tabs = [
     { id: 'a-team', label: 'A Takım', icon: Trophy, color: 'text-yellow-600' },
-    { id: 'u18', label: 'U18 B Ligi', icon: Star, color: 'text-blue-600' },
-    { id: 'u17', label: 'U17 B Ligi', icon: Award, color: 'text-green-600' },
-    { id: 'u16', label: 'U16 B Ligi', icon: Users, color: 'text-purple-600' }
+    { id: 'u18', label: 'U18 Takımı', icon: Star, color: 'text-blue-600' },
+    { id: 'u16', label: 'U16 Takımı', icon: Users, color: 'text-purple-600' }
   ];
 
   const currentTeam = teams[activeTab as keyof typeof teams];
@@ -192,7 +208,6 @@ const TeamsPage = () => {
                   <div key={index} className="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
                     <h4 className="font-bold text-gray-900">{staff.name}</h4>
                     <p className="text-red-600 font-medium">{staff.role}</p>
-                    <p className="text-gray-600 text-sm">Deneyim: {staff.experience}</p>
                   </div>
                 ))}
               </div>
@@ -239,57 +254,47 @@ const TeamsPage = () => {
             </div>
           </div>
 
-          {/* Additional Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Kulüp Bilgileri */}
+          <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                <Calendar className="mr-2 text-red-600" size={24} />
-                Antrenman Programı
-              </h3>
-              <div className="space-y-3">
-                <div className="flex justify-between py-3 border-b border-gray-100">
-                  <span className="text-gray-600 font-medium">Pazartesi - Çarşamba - Cuma</span>
-                  <span className="font-bold text-red-600">
-                    {activeTab === 'a-team' ? '19:00 - 21:00' : 
-                     activeTab === 'u18' ? '17:00 - 19:00' : 
-                     activeTab === 'u17' ? '15:30 - 17:30' : '14:00 - 16:00'}
-                  </span>
+              <h3 className="text-xl font-bold mb-6 text-gray-900">Kulüp Bilgileri</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="space-y-4">
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="font-medium text-gray-600">Kuruluş:</span>
+                    <span className="text-gray-900">1951</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="font-medium text-gray-600">Renkler:</span>
+                    <span className="text-gray-900">Kırmızı-Beyaz</span>
+                  </div>
+                  <div className="flex justify-between py-2">
+                    <span className="font-medium text-gray-600">Lig:</span>
+                    <span className="text-gray-900">{currentTeam.league}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between py-3 border-b border-gray-100">
-                  <span className="text-gray-600 font-medium">Cumartesi</span>
-                  <span className="font-bold text-red-600">
-                    {activeTab === 'a-team' ? '16:00 - 18:00' : '10:00 - 12:00'}
-                  </span>
+                <div className="space-y-4">
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="font-medium text-gray-600">Telefon:</span>
+                    <span className="text-gray-900">0216 342 89 27</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="font-medium text-gray-600">Instagram:</span>
+                    <span className="text-gray-900">@uskudaricadiyespor</span>
+                  </div>
+                  <div className="flex justify-between py-2">
+                    <span className="font-medium text-gray-600">E-posta:</span>
+                    <span className="text-gray-900">info@uskudaricadiyespor.com</span>
+                  </div>
                 </div>
-                <div className="flex justify-between py-3">
-                  <span className="text-gray-600 font-medium">Pazar</span>
-                  <span className="font-bold text-green-600">Maç Günü</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Takım Bilgileri</h3>
-              <div className="space-y-3 text-gray-600">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="font-medium">Kuruluş:</span>
-                  <span>1987</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="font-medium">Renkler:</span>
-                  <span>Kırmızı-Beyaz</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="font-medium">Stadyum:</span>
-                  <span>İcadiye Sahası</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="font-medium">Kapasite:</span>
-                  <span>500 kişi</span>
-                </div>
-                <div className="flex justify-between py-2">
-                  <span className="font-medium">Lig:</span>
-                  <span>{currentTeam.league}</span>
+                <div className="space-y-4">
+                  <div className="py-2 border-b border-gray-100">
+                    <span className="font-medium text-gray-600 block mb-1">Adres:</span>
+                    <span className="text-gray-900 text-sm">
+                      İcadiye, Cemil Meriç Sk. No:2<br/>
+                      34674 Üsküdar/İstanbul
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

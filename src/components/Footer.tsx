@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { MapPin, Phone, Mail, Instagram, Facebook, Twitter } from 'lucide-react';
+import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -15,11 +15,11 @@ const Footer = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">Üsküdar İcadiye Spor</h3>
-                <p className="text-gray-400 text-sm">Est. 1987</p>
+                <p className="text-gray-400 text-sm">Est. 1951</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              1987 yılından beri Üsküdar'ın gururu olan kulübümüz, gençlerin 
+              1951 yılından beri Üsküdar'ın gururu olan kulübümüz, gençlerin 
               spora yönlendirilmesi ve spor kültürünün geliştirilmesi amacıyla 
               faaliyet göstermektedir.
             </p>
@@ -37,11 +37,6 @@ const Footer = () => {
               <li>
                 <Link href="/takimlar" className="text-gray-400 hover:text-white transition-colors flex items-center">
                   • U18 B Ligi
-                </Link>
-              </li>
-              <li>
-                <Link href="/takimlar" className="text-gray-400 hover:text-white transition-colors flex items-center">
-                  • U17 B Ligi
                 </Link>
               </li>
               <li>
@@ -86,14 +81,14 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
                 <div className="text-gray-400 text-sm">
-                  <p>İcadiye Mahallesi</p>
-                  <p>Üsküdar/İstanbul</p>
+                  <p>İcadiye, Cemil Meriç Sk. No:2</p>
+                  <p>34674 Üsküdar/İstanbul</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-red-400 flex-shrink-0" />
-                <a href="tel:+902161234567" className="text-gray-400 text-sm hover:text-white transition-colors">
-                  +90 (216) 123 45 67
+                <a href="tel:+902163428927" className="text-gray-400 text-sm hover:text-white transition-colors">
+                  +90 (216) 342 89 27
                 </a>
               </div>
               <div className="flex items-center space-x-3">
@@ -108,14 +103,11 @@ const Footer = () => {
             <div className="mt-6">
               <h4 className="font-medium mb-4">Bizi Takip Edin</h4>
               <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors">
+                <a href="https://instagram.com/uskudaricadiyespor" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors">
                   <Instagram size={18} />
                 </a>
                 <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
                   <Facebook size={18} />
-                </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors">
-                  <Twitter size={18} />
                 </a>
               </div>
             </div>
