@@ -176,9 +176,6 @@ const GalleryPage = () => {
                     {item.type === 'video' ? (
                       <div className="flex flex-col items-center text-white">
                         <Play size={32} className="mb-2" />
-                        <span className="text-sm bg-black/50 px-2 py-1 rounded">
-                          {item.duration}
-                        </span>
                       </div>
                     ) : (
                       <Camera size={32} className="text-gray-500" />
