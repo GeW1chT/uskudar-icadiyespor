@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Calendar, Trophy, Users, Target } from 'lucide-react'
 
 const HomePage = () => {
-  const recentNews = [
+  const recentNews: any[] = [
     // Gerçek haberler buraya eklenecek
   ];
 
