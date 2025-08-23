@@ -31,8 +31,8 @@ const GalleryPage = () => {
     },
     {
       id: 2,
-      title: "U18 Takım Fotoğrafı",
-      description: "U18 takımımızın resmi takım fotoğrafı",
+      title: "U17 Takım Fotoğrafı",
+      description: "U17 takımımızın resmi takım fotoğrafı",
       date: "2025-08-18",
       category: "training",
       type: "image",
@@ -42,7 +42,7 @@ const GalleryPage = () => {
     },
     {
       id: 3,
-      title: "Genç Takımımız",
+      title: "U17 Takımımız",
       description: "Altyapı takımımızdan kareler",
       date: "2025-08-15",
       category: "training",

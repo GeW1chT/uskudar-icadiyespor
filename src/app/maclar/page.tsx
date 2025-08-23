@@ -16,8 +16,8 @@ const MatchesPage = () => {
         time: '18:00',
         homeTeam: 'Üsküdar İcadiye',
         awayTeam: 'Vadı Spor',
-        venue: 'Turnuva Sahası',
-        competition: '18. Amatör Turnuva',
+        venue: 'Beylerbeyi Stadyumu',
+        competition: 'Üsküdar Kulüpler Birliği Kupası',
         team: 'A Takım',
         isHome: true
       },
@@ -27,8 +27,8 @@ const MatchesPage = () => {
         time: '20:00',
         homeTeam: 'Üsküdar İcadiye',
         awayTeam: 'Üsküdar Altınşehir',
-        venue: 'Turnuva Sahası',
-        competition: '18. Amatör Turnuva',
+        venue: 'Selimiye Stadyumu',
+        competition: 'Üsküdar Kulüpler Birliği Kupası',
         team: 'A Takım',
         isHome: true
       },
@@ -38,8 +38,8 @@ const MatchesPage = () => {
         time: '18:00',
         homeTeam: 'Üsküdar İcadiye',
         awayTeam: 'Ünalan S.K.',
-        venue: 'Turnuva Sahası',
-        competition: '18. Amatör Turnuva',
+        venue: 'Selimiye Stadyumu',
+        competition: 'Üsküdar Kulüpler Birliği Kupası',
         team: 'A Takım',
         isHome: true
       }

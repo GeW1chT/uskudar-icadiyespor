@@ -1,11 +1,19 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
+import Link from 'next/link' // Link component'ini import ettik
 import { Calendar, Trophy, Users, Target } from 'lucide-react'
 
 const HomePage = () => {
-  const recentNews: any[] = [
-    // Gerçek haberler buraya eklenecek
+  // Önceki haber objesinden kısaltılmış bir versiyonu buraya ekledik
+  const recentNews = [
+    {
+      id: 1,
+      title: 'Bugün Maç Günü! Takımımıza Destek Olmaya Gel!',
+      excerpt: 'Bugün oynanacak önemli maç öncesi, tüm taraftarlarımızı tribünlerde yerini almaya ve takımımızı desteklemeye davet ediyoruz.',
+      date: '23 Ağustos 2025',
+      href: '/haberler', // Haber detay sayfasına yönlendirme için
+    },
   ];
 
   const upcomingMatches = [
@@ -48,7 +56,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <main>
         {/* Hero Section */}
         <section className="relative bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white py-20 overflow-hidden">
@@ -124,21 +132,23 @@ const HomePage = () => {
               <div className="space-y-6">
                 {recentNews.length > 0 ? (
                   recentNews.map((news) => (
-                    <article key={news.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-2 text-gray-900 hover:text-red-600 cursor-pointer">
-                          {news.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm mb-3 flex items-center">
-                          <Calendar size={16} className="mr-2" />
-                          {news.date}
-                        </p>
-                        <p className="text-gray-700 leading-relaxed">{news.excerpt}</p>
-                        <button className="text-red-600 hover:text-red-800 font-medium mt-4 inline-flex items-center">
-                          Devamını Oku →
-                        </button>
-                      </div>
-                    </article>
+                    <Link key={news.id} href={news.href} passHref>
+                      <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                        <div className="p-6">
+                          <h3 className="text-xl font-bold mb-2 text-gray-900 hover:text-red-600">
+                            {news.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm mb-3 flex items-center">
+                            <Calendar size={16} className="mr-2" />
+                            {news.date}
+                          </p>
+                          <p className="text-gray-700 leading-relaxed">{news.excerpt}</p>
+                          <span className="text-red-600 hover:text-red-800 font-medium mt-4 inline-flex items-center">
+                            Devamını Oku →
+                          </span>
+                        </div>
+                      </article>
+                    </Link>
                   ))
                 ) : (
                   <div className="bg-white rounded-lg shadow-md p-6 text-center">
@@ -181,7 +191,7 @@ const HomePage = () => {
                   </div>
                 ))}
               </div>
-              
+
               {/* Hızlı Aksiyonlar */}
               <div className="mt-8 grid grid-cols-2 gap-4">
                 <a href="/maclar" className="bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 transition-colors text-center font-medium">
@@ -200,7 +210,7 @@ const HomePage = () => {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">Üsküdar İcadiye Spor Ailesi</h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              1951'den beri Üsküdar'ın gururu olan kulübümüze katılın. 
+              1951'den beri Üsküdar'ın gururu olan kulübümüze katılın.
               Gençlerimizi spora yönlendiriyor, gelecek nesillere spor kültürünü aktarıyoruz.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
