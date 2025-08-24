@@ -1,21 +1,29 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
-import Link from 'next/link' // Link component'ini import ettik
+import Link from 'next/link' 
 import { Calendar, Trophy, Users, Target } from 'lucide-react'
 
 const HomePage = () => {
-  // Önceki haber objesinden kısaltılmış bir versiyonu buraya ekledik
+  // Haberler
   const recentNews = [
     {
       id: 1,
       title: 'Bugün Maç Günü! Takımımıza Destek Olmaya Gel!',
       excerpt: 'Bugün oynanacak önemli maç öncesi, tüm taraftarlarımızı tribünlerde yerini almaya ve takımımızı desteklemeye davet ediyoruz.',
       date: '23 Ağustos 2025',
-      href: '/haberler', // Haber detay sayfasına yönlendirme için
+      href: '/haberler',
+    },
+    {
+      id: 2,
+      title: 'Üsküdar İcadiye, Vadispor ile 1-1 Berabere Kaldı',
+      excerpt: '18. Üsküdar Kulüpler Birliği Turnuvası’nın ilk maçında takımımız Vadispor ile 1-1 berabere kaldı. Mücadelede oyuncularımız üstün bir performans sergiledi.',
+      date: '23 Ağustos 2025',
+      href: '/haberler',
     },
   ];
 
+  // Yaklaşan maçlar
   const upcomingMatches = [
     {
       id: 1,
@@ -46,11 +54,12 @@ const HomePage = () => {
     }
   ];
 
+  // Takım istatistikleri
   const teamStats = [
     { label: "A Takım", value: "23", description: "Aktif Oyuncu" },
     { label: "U18 Takımı", value: "6", description: "Genç Yetenek" },
-    { label: "U16 Takımı", value: "6", description: "Gelecek Yıldızlar" },
-    { label: "Toplam", value: "35", description: "Kulüp Oyuncusu" }
+    { label: "U16 Takımı", value: "18", description: "Gelecek Yıldızlar" },
+    { label: "Toplam", value: "47", description: "Kulüp Oyuncusu" }
   ];
 
   return (
@@ -107,7 +116,7 @@ const HomePage = () => {
               </div>
               <div className="flex flex-col items-center">
                 <Target className="w-12 h-12 text-green-600 mb-4" />
-                <div className="text-3xl font-bold text-gray-900">35+</div>
+                <div className="text-3xl font-bold text-gray-900">47+</div>
                 <div className="text-gray-600">Aktif Sporcu</div>
               </div>
               <div className="flex flex-col items-center">

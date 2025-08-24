@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Calendar, Clock, User, Tag, ArrowRight, Newspaper, MapPin } from 'lucide-react';
+import { Calendar, Clock, User, ArrowRight, Newspaper, MapPin } from 'lucide-react';
 
 // Maç detayları için bir type tanımı ekleyelim
 interface MatchDetails {
@@ -60,6 +60,24 @@ const NewsPage = () => {
         kickOffTime: '18:00'
       }
     },
+    {
+      id: 2,
+      title: 'Üsküdar İcadiye, Vadispor ile 1-1 Berabere Kaldı',
+      summary: '18. Üsküdar Kulüpler Birliği Turnuvası’nın ilk maçında takımımız Vadispor ile 1-1 berabere kaldı. Mücadelede oyuncularımız üstün bir performans sergiledi.',
+      date: '2025-08-23T18:00:00Z',
+      author: 'Kulüp Yönetimi',
+      category: 'matches',
+      image: '/gallery/match-uskudar-vadispor.jpg', // Görseli buraya koy
+      featured: false,
+      content: 'Takımımız, Beylerbeyi 75. Yıl Stadyumu’nda oynanan Üsküdar Kulüpler Birliği Turnuvası ilk maçında Vadispor ile 1-1 berabere kaldı. Oyuncularımız sahada mücadeleci ruhlarıyla göz doldurdu. Takımımıza bundan sonraki maçlarında başarılar dileriz.',
+      matchDetails: {
+        competition: 'Üsküdar Kulüpler Birliği Turnuvası',
+        homeTeam: 'Üsküdar İcadiye',
+        awayTeam: 'Vadi Spor',
+        stadium: 'Beylerbeyi 75. Yıl Stadyumu',
+        kickOffTime: '18:00'
+      }
+    }
   ];
 
   const filteredNews = selectedCategory === 'all'
@@ -133,7 +151,7 @@ const NewsPage = () => {
             </div>
             <div className="mt-4 text-center text-gray-600 flex justify-center items-center">
               <MapPin size={16} className="mr-2" />
-              <span>{matchDetails.stadium}</span> {/* Hatalı satır düzeltildi */}
+              <span>{matchDetails.stadium}</span>
             </div>
           </div>
         )}
