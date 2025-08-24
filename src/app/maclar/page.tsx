@@ -3,24 +3,13 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Calendar, Clock, MapPin, Trophy, Target, Users, TrendingUp } from 'lucide-react';
+import { Calendar, MapPin, Trophy, Target, Users, TrendingUp } from 'lucide-react';
 
 const MatchesPage = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
 
   const matches = {
     upcoming: [
-      {
-        id: 1,
-        date: '2025-08-23',
-        time: '18:00',
-        homeTeam: 'Üsküdar İcadiye',
-        awayTeam: 'Vadı Spor',
-        venue: 'Beylerbeyi Stadyumu',
-        competition: 'Üsküdar Kulüpler Birliği Kupası',
-        team: 'A Takım',
-        isHome: true
-      },
       {
         id: 2,
         date: '2025-08-29',
@@ -45,16 +34,30 @@ const MatchesPage = () => {
       }
     ],
     results: [
-      // Henüz bu sezon maç oynamamışlar - maçlar oynandıkça buraya eklenecek
+      {
+        id: 1,
+        date: '2025-08-23',
+        time: '18:00',
+        homeTeam: 'Üsküdar İcadiye',
+        awayTeam: 'Vadı Spor',
+        venue: 'Beylerbeyi Stadyumu',
+        competition: 'Üsküdar Kulüpler Birliği Kupası',
+        team: 'A Takım',
+        isHome: true,
+        homeScore: 1,
+        awayScore: 1
+      }
     ]
   };
 
-  const standings = [
-    { position: 1, team: 'Üsküdar İcadiye', played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { position: 2, team: 'Vadı Spor', played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { position: 3, team: 'Üsküdar Altınşehir', played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 },
-    { position: 4, team: 'Ünalan S.K.', played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 }
+  // Sadece 1 maç oynandığı duruma göre puan durumu
+    const standings = [
+    { position: 1, team: 'Üsküdar Altınşehir', played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 2, gd:  1, points: 3 },
+    { position: 2, team: 'Üsküdar İcadiye',   played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd:  0, points: 1 },
+    { position: 3, team: 'Vadı Spor',          played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd:  0, points: 1 },
+    { position: 4, team: 'Ünalan S.K.',        played: 1, won: 0, drawn: 0, lost: 1, gf: 2, ga: 3, gd: -1, points: 0 }
   ];
+
 
   const tabs = [
     { id: 'upcoming', label: 'Yaklaşan Maçlar', icon: Calendar },
@@ -64,19 +67,15 @@ const MatchesPage = () => {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('tr-TR', { 
-      day: 'numeric', 
-      month: 'long', 
-      year: 'numeric' 
-    });
+    return date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
   };
 
   const getTeamColor = (team: string) => {
     switch(team) {
       case 'A Takım': return 'bg-yellow-100 text-yellow-800';
-      case 'U18': return 'bg-blue-100 text-blue-800';
-      case 'U16': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'U18':     return 'bg-blue-100 text-blue-800';
+      case 'U16':     return 'bg-purple-100 text-purple-800';
+      default:        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -122,18 +121,10 @@ const MatchesPage = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center text-sm text-gray-600 mb-2">
+      <div className="flex items-center justify-center text-sm text-gray-600">
         <MapPin size={16} className="mr-1" />
         {match.venue}
       </div>
-
-      {showScore && match.goalScorers && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
-          <div className="text-sm text-gray-600">
-            <strong>Goller:</strong> {match.goalScorers.join(', ')}
-          </div>
-        </div>
-      )}
     </div>
   );
 
@@ -154,22 +145,22 @@ const MatchesPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <Trophy className="w-8 h-8 text-red-600 mx-auto mb-3" />
-            <div className="text-2xl font-bold text-gray-900">-</div>
+            <div className="text-2xl font-bold text-gray-900">2</div>
             <div className="text-sm text-gray-600">Turnuva Pozisyonu</div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <Target className="w-8 h-8 text-green-600 mx-auto mb-3" />
-            <div className="text-2xl font-bold text-gray-900">0-0-0</div>
+            <div className="text-2xl font-bold text-gray-900">0-1-0</div>
             <div className="text-sm text-gray-600">G-B-M</div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <TrendingUp className="w-8 h-8 text-blue-600 mx-auto mb-3" />
-            <div className="text-2xl font-bold text-gray-900">0:0</div>
+            <div className="text-2xl font-bold text-gray-900">1:1</div>
             <div className="text-sm text-gray-600">Gol Averajı</div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <Users className="w-8 h-8 text-purple-600 mx-auto mb-3" />
-            <div className="text-2xl font-bold text-gray-900">3</div>
+            <div className="text-2xl font-bold text-gray-900">2</div>
             <div className="text-sm text-gray-600">Kalan Maç</div>
           </div>
         </div>
@@ -210,14 +201,10 @@ const MatchesPage = () => {
         {activeTab === 'results' && (
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-6 text-gray-900">Maç Sonuçları</h2>
-            <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <div className="text-gray-400 mb-4">
-                <Trophy size={64} className="mx-auto mb-4 opacity-50" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">Henüz Maç Oynamamışız</h3>
-              <p className="text-gray-500">
-                Bu sezon henüz hiç maç oynamadık. İlk maçımız 23 Ağustos'ta Vadı Spor ile.
-              </p>
+            <div className="space-y-6">
+              {matches.results.map((match) => (
+                <MatchCard key={match.id} match={match} showScore />
+              ))}
             </div>
           </div>
         )}
@@ -254,7 +241,7 @@ const MatchesPage = () => {
                       >
                         <td className="py-4 px-4">
                           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                            team.position <= 2 ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
+                            team.points > 0 ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
                           }`}>
                             {team.position}
                           </div>
