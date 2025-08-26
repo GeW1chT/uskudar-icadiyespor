@@ -52,10 +52,14 @@ const MatchesPage = () => {
 
   // Sadece 1 maç oynandığı duruma göre puan durumu
     const standings = [
-    { position: 1, team: 'Üsküdar Altınşehir', played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 2, gd:  1, points: 3 },
-    { position: 2, team: 'Üsküdar İcadiye',   played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd:  0, points: 1 },
-    { position: 3, team: 'Vadı Spor',          played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd:  0, points: 1 },
-    { position: 4, team: 'Ünalan S.K.',        played: 1, won: 0, drawn: 0, lost: 1, gf: 2, ga: 3, gd: -1, points: 0 }
+    { position: 1, team: 'Selami Ali Yeşilsaha', played: 2, won: 2, drawn: 0, lost: 0, gf: 8, ga: 3, gd:  5, points: 6 },
+    { position: 2, team: 'Kemah',   played: 2, won: 1, drawn: 0, lost: 1, gf: 6, ga: 5, gd:  1, points: 3 },
+    { position: 3, team: 'Üsküdar Altınşehir',          played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 2, gd:  1, points: 3 },
+    { position: 4, team: 'Acıbadem Üsküdar',        played: 2, won: 1, drawn: 0, lost: 1, gf: 6, ga: 8, gd: -2, points: 3 },
+    { position: 5, team: 'Üsküdar İcadiye',        played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, points: 1 },
+    { position: 6, team: 'Vadi',        played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, points: 1 },
+    { position: 7, team: 'Ünalan S.K.',        played: 1, won: 0, drawn: 0, lost: 1, gf: 2, ga: 3, gd: -1, points: 0 },
+    { position: 8, team: 'Üsküdar Belediye',        played: 2, won: 0, drawn: 0, lost: 2, gf: 5, ga: 9, gd: -4, points: 0 }
   ];
 
 
