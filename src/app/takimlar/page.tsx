@@ -5,21 +5,25 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Users, Trophy, Star } from 'lucide-react';
 
+interface Player {
+  name: string;
+  position: string;
+  number: number;
+  age?: number;
+  experience?: string;
+}
+
+interface StaffMember {
+  name: string;
+  role: string;
+}
+
 interface Team {
   title: string;
   description: string;
   league: string;
-  players: Array<{
-    name: string;
-    position: string;
-    number: number;
-    age: number;
-    experience: string;
-  }>;
-  staff: Array<{
-    name: string;
-    role: string;
-  }>;
+  players: Player[];
+  staff: StaffMember[];
 }
 
 interface Teams {
@@ -35,34 +39,37 @@ const TeamsPage = () => {
       description: "Kulübümüzün deneyimli ve başarılı takımı",
       league: "2. Amatör Lig",
       players: [
-        { name: "Ömer Faruk Uyar", position: "Kaleci", number: 1, age: 18, experience: "2 yıl" },
-        { name: "Rafet Gültekin", position: "Kaleci", number: 12, age: 17, experience: "4 yıl" },
-        { name: "Salih Kocagöz", position: "Sağ Bek", number: 3, age: 20, experience: "4 yıl" },
-        { name: "Emirhan Bulut", position: "Sağ Bek", number: 4, age: 19, experience: "3 yıl" },
-        { name: "Fatih Talha Kapucu", position: "Sağ Bek", number: 5, age: 16, experience: "2 yıl" },
-        { name: "Yasin Göz", position: "Sol Bek", number: 6, age: 18, experience: "2 yıl" },
-        { name: "Kuzey Aktaş", position: "Sol Bek", number: 7, age: 17, experience: "4 yıl" },
-        { name: "Arda Hamit Atmaca", position: "Stoper", number: 8, age: 18, experience: "2 yıl" },
-        { name: "Emirhan Güneş", position: "Stoper", number: 9, age: 19, experience: "3 yıl" },
-        { name: "Berke Bozali", position: "Stoper", number: 10, age: 16, experience: "2 yıl" },
-        { name: "Yağız Aras Özdemir", position: "Stoper", number: 11, age: 18, experience: "3 yıl" },
-        { name: "Metin Mert Öztürk", position: "Stoper", number: 12, age: 24, experience: "2 yıl" },
-        { name: "Arda Yücel", position: "Orta Saha", number: 13, age: 19, experience: "4 yıl" },
-        { name: "Mehmet İz Hritani", position: "Orta Saha", number: 14, age: 16, experience: "2 yıl" },
-        { name: "Tevfik Efe Aktaş", position: "Orta Saha", number: 15, age: 20, experience: "4 yıl" },
-        { name: "Beytullah Efe Tanrıkulu", position: "Orta Saha", number: 16, age: 16, experience: "2 yıl" },
-        { name: "Muhammet Costel Karakafa", position: "Kanat/Forvet", number: 17, age: 20, experience: "8 yıl" },
-        { name: "Onur Çalıkuşu", position: "Kanat", number: 18, age: 18, experience: "1 yıl" },
-        { name: "Ahmet Muhammet Ayhan", position: "Forvet", number: 19, age: 18, experience: "2 yıl" },
-        { name: "Kerem Yağız Ayin", position: "Sağ Kanat", number: 20, age: 17, experience: "2 yıl" },
-        { name: "Sarp Sezer", position: "Sağ Kanat", number: 21, age: 17, experience: "2 yıl" },
-        { name: "Mustafa Efe Dağcı", position: "Forvet", number: 22, age: 18, experience: "1 yıl" },
-        { name: "Abdulkadir Çetükkaya", position: "Forvet", number: 23, age: 18, experience: "1 yıl" }
+        { name: "Ömer Faruk Uyar",           position: "Kaleci",    number: 1  },
+        { name: "Berke Bozali",              position: "Defans",    number: 4  },
+        { name: "Alper Bekir Özçelik",       position: "Defans",    number: 5  },
+        { name: "Metin Mert Öztürk",         position: "Defans",    number: 6  },
+        { name: "Ayaz Taşanyürek",           position: "Defans",    number: 7  },
+        { name: "Efe Albayrak",              position: "Defans",    number: 9  },
+        { name: "Muhammet Costel Karakafa",  position: "Defans",    number: 10 },
+        { name: "Emirhan Usta",              position: "Defans",    number: 11 },
+        { name: "Okan Batıkan Şahin",        position: "Orta Saha", number: 13 },
+        { name: "Güney Aygün",              position: "Orta Saha", number: 20 },
+        { name: "Emirhan Güneş",            position: "Orta Saha", number: 21 },
+        { name: "Mert Uğur",               position: "Orta Saha", number: 22 },
+        { name: "Emirhan Bulut",            position: "Orta Saha", number: 23 },
+        { name: "Mustafa Efe Dağcı",        position: "Orta Saha", number: 25 },
+        { name: "Abdulkadir Çetükkaya",     position: "Orta Saha", number: 28 },
+        { name: "Furkan Barış Ava",         position: "Orta Saha", number: 34 },
+        { name: "Furkan Öz",               position: "Orta Saha", number: 37 },
+        { name: "Enis Dal",                position: "Kanat",     number: 46 },
+        { name: "Arda Yücel",              position: "Kanat",     number: 52 },
+        { name: "Zeki Berkay Köksal",       position: "Kanat",     number: 53 },
+        { name: "Ayberk Hüda Yaman",        position: "Forvet",    number: 55 },
+        { name: "Onur Çalıkuşu",           position: "Forvet",    number: 60 },
+        { name: "Kaan Kukul",              position: "Forvet",    number: 61 },
+        { name: "Salih Kocagöz",           position: "Forvet",    number: 67 },
+        { name: "Fehmi Burak Öz",          position: "Forvet",    number: 88 },
+        { name: "Eren Mert Özbey",         position: "Forvet",    number: 94 },
+        { name: "Ertan Sağlam",            position: "Forvet",    number: 95 }
       ],
       staff: [
-        { name: "Ersin Keskin", role: "Teknik Direktör" },
-        { name: "Ümit Bekoğlu", role: "Antrenör" },
-        { name: "Murat Ergün", role: "Futbol Direktörü" }
+        { name: "Çetin Savaş",  role: "Teknik Direktör" },
+        { name: "Murat Ergün",  role: "Yönetici" }
       ]
     },
     'u18': {
@@ -70,16 +77,16 @@ const TeamsPage = () => {
       description: "18 yaş altı yetenekli gençlerimiz",
       league: "U18 Ligi",
       players: [
-        { name: "Ahmet Yılmaz", position: "Kaleci", number: 1, age: 17, experience: "2 yıl" },
-        { name: "Mehmet Özkan", position: "Defans", number: 2, age: 18, experience: "3 yıl" },
-        { name: "Ali Kaya", position: "Defans", number: 3, age: 17, experience: "2 yıl" },
-        { name: "Burak Demir", position: "Orta Saha", number: 4, age: 18, experience: "2 yıl" },
-        { name: "Emre Aydın", position: "Orta Saha", number: 5, age: 17, experience: "1 yıl" },
-        { name: "Can Şahin", position: "Forvet", number: 6, age: 18, experience: "3 yıl" }
+        { name: "Ahmet Yılmaz",  position: "Kaleci",    number: 1,  age: 17, experience: "2 yıl" },
+        { name: "Mehmet Özkan",  position: "Defans",    number: 2,  age: 18, experience: "3 yıl" },
+        { name: "Ali Kaya",      position: "Defans",    number: 3,  age: 17, experience: "2 yıl" },
+        { name: "Burak Demir",   position: "Orta Saha", number: 4,  age: 18, experience: "2 yıl" },
+        { name: "Emre Aydın",    position: "Orta Saha", number: 5,  age: 17, experience: "1 yıl" },
+        { name: "Can Şahin",     position: "Forvet",    number: 6,  age: 18, experience: "3 yıl" }
       ],
       staff: [
-        { name: "Ümit Bekoğlu", role: "Teknik Direktör" },
-        { name: "Murat Ergün", role: "Futbol Direktörü" }
+        { name: "Çetin Savaş",  role: "Teknik Direktör" },
+        { name: "Murat Ergün",  role: "Yönetici" }
       ]
     },
     'u16': {
@@ -87,45 +94,46 @@ const TeamsPage = () => {
       description: "16 yaş altı gelecek yıldızlarımız",
       league: "U16 Ligi",
       players: [
-        { name: "Osman Yılmaz", position: "Kaleci", number: 1, age: 15, experience: "1 yıl" },
-        { name: "Numut Umut Bekoğlu", position: "Kaleci", number: 2, age: 14, experience: "1 yıl" },
-        { name: "Recep Doruk Özdemir", position: "Sağ Bek", number: 3, age: 14, experience: "1 yıl" },
-        { name: "Ahmet Said Karaca", position: "Sağ Bek", number: 4, age: 15, experience: "1 yıl" },
-        { name: "Ali Berkay Bir", position: "Sol Bek", number: 5, age: 15, experience: "1 yıl" },
-        { name: "Ege Yiğit Türk", position: "Stoper", number: 6, age: 15, experience: "1 yıl" },
-        { name: "Ozan Taş", position: "Stoper", number: 7, age: 15, experience: "1 yıl" },
-        { name: "Ömer Efe Köse", position: "Stoper", number: 8, age: 15, experience: "1 yıl" },
-        { name: "Utku Özgül", position: "Sağ Bek", number: 9, age: 15, experience: "1 yıl" },
-        { name: "Ahmet Yusuf Akın", position: "Orta Saha", number: 10, age: 14, experience: "1 yıl" },
-        { name: "Emre Eken", position: "Orta Saha", number: 11, age: 15, experience: "1 yıl" },
-        { name: "Mustafa Küçükağız", position: "Orta Saha", number: 12, age: 15, experience: "1 yıl" },
-        { name: "Özgür Can Akan", position: "Sol Kanat", number: 13, age: 13, experience: "1 yıl" },
-        { name: "Kerem Erdoğan", position: "Sağ Kanat", number: 14, age: 15, experience: "1 yıl" },
-        { name: "Tamer Hritani", position: "Kanat Forvet", number: 15, age: 15, experience: "1 yıl" },
-        { name: "Ensar Kartal", position: "Forvet", number: 16, age: 14, experience: "1 yıl" },
-        { name: "Aziz Eren Berber", position: "Forvet", number: 17, age: 15, experience: "1 yıl" },
-        { name: "Mustafa Ali Altıntaş", position: "Sağ Bek", number: 18, age: 15, experience: "1 yıl" }
+        { name: "Osman Yılmaz",         position: "Kaleci",      number: 1,  age: 15, experience: "1 yıl" },
+        { name: "Numut Umut Bekoğlu",   position: "Kaleci",      number: 2,  age: 14, experience: "1 yıl" },
+        { name: "Recep Doruk Özdemir",  position: "Sağ Bek",     number: 3,  age: 14, experience: "1 yıl" },
+        { name: "Ahmet Said Karaca",    position: "Sağ Bek",     number: 4,  age: 15, experience: "1 yıl" },
+        { name: "Ali Berkay Bir",       position: "Sol Bek",     number: 5,  age: 15, experience: "1 yıl" },
+        { name: "Ege Yiğit Türk",       position: "Stoper",      number: 6,  age: 15, experience: "1 yıl" },
+        { name: "Ozan Taş",             position: "Stoper",      number: 7,  age: 15, experience: "1 yıl" },
+        { name: "Ömer Efe Köse",        position: "Stoper",      number: 8,  age: 15, experience: "1 yıl" },
+        { name: "Utku Özgül",           position: "Sağ Bek",     number: 9,  age: 15, experience: "1 yıl" },
+        { name: "Ahmet Yusuf Akın",     position: "Orta Saha",   number: 10, age: 14, experience: "1 yıl" },
+        { name: "Emre Eken",            position: "Orta Saha",   number: 11, age: 15, experience: "1 yıl" },
+        { name: "Mustafa Küçükağız",    position: "Orta Saha",   number: 12, age: 15, experience: "1 yıl" },
+        { name: "Özgür Can Akan",       position: "Sol Kanat",   number: 13, age: 13, experience: "1 yıl" },
+        { name: "Kerem Erdoğan",        position: "Sağ Kanat",   number: 14, age: 15, experience: "1 yıl" },
+        { name: "Tamer Hritani",        position: "Kanat Forvet",number: 15, age: 15, experience: "1 yıl" },
+        { name: "Ensar Kartal",         position: "Forvet",      number: 16, age: 14, experience: "1 yıl" },
+        { name: "Aziz Eren Berber",     position: "Forvet",      number: 17, age: 15, experience: "1 yıl" },
+        { name: "Mustafa Ali Altıntaş", position: "Sağ Bek",     number: 18, age: 15, experience: "1 yıl" }
       ],
       staff: [
-        { name: "Ümit Bekoğlu", role: "Teknik Direktör" },
-        { name: "Murat Ergün", role: "Futbol Direktörü" }
+        { name: "Çetin Savaş",  role: "Teknik Direktör" },
+        { name: "Murat Ergün",  role: "Yönetici" }
       ]
     }
   };
 
   const tabs = [
-    { id: 'a-team', label: 'A Takım', icon: Trophy, color: 'text-yellow-600' },
-    { id: 'u18', label: 'U18 Takımı', icon: Star, color: 'text-blue-600' },
-    { id: 'u16', label: 'U16 Takımı', icon: Users, color: 'text-purple-600' }
+    { id: 'a-team', label: 'A Takım',   icon: Trophy, color: 'text-yellow-600' },
+    { id: 'u18',    label: 'U18 Takımı', icon: Star,   color: 'text-blue-600'   },
+    { id: 'u16',    label: 'U16 Takımı', icon: Users,  color: 'text-purple-600' }
   ];
 
   const currentTeam = teams[activeTab as keyof typeof teams];
+  const isATeam = activeTab === 'a-team';
 
   const getPositionColor = (position: string) => {
-    if (position.includes('Kaleci')) return 'bg-yellow-100 text-yellow-800';
+    if (position.includes('Kaleci'))                                                   return 'bg-yellow-100 text-yellow-800';
     if (position.includes('Defans') || position.includes('Bek') || position.includes('Stoper')) return 'bg-blue-100 text-blue-800';
-    if (position.includes('Orta Saha')) return 'bg-green-100 text-green-800';
-    if (position.includes('Forvet') || position.includes('Kanat')) return 'bg-red-100 text-red-800';
+    if (position.includes('Orta Saha'))                                                return 'bg-green-100 text-green-800';
+    if (position.includes('Forvet') || position.includes('Kanat'))                    return 'bg-red-100 text-red-800';
     return 'bg-gray-100 text-gray-800';
   };
 
@@ -178,7 +186,7 @@ const TeamsPage = () => {
                 <div className="mt-4 md:mt-0 text-center">
                   <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-white font-bold text-2xl">
-                      {currentTeam.title.includes('A') ? 'A' : currentTeam.title.substring(1,3)}
+                      {currentTeam.title.includes('A Takım') ? 'A' : currentTeam.title.substring(1,3)}
                     </span>
                   </div>
                 </div>
@@ -198,12 +206,17 @@ const TeamsPage = () => {
                 </div>
                 <div className="bg-white p-4 rounded-lg shadow">
                   <div className="text-2xl font-bold text-red-600">
-                    {Math.round(currentTeam.players.reduce((sum, p) => sum + p.age, 0) / currentTeam.players.length)}
+                    {isATeam
+                      ? '2. Amatör'
+                      : Math.round(
+                          (currentTeam.players as Required<Player>[]).reduce((s, p) => s + (p.age ?? 0), 0) /
+                          currentTeam.players.length
+                        )}
                   </div>
-                  <div className="text-sm text-gray-600">Ortalama Yaş</div>
+                  <div className="text-sm text-gray-600">{isATeam ? 'Lig' : 'Ortalama Yaş'}</div>
                 </div>
                 <div className="bg-white p-4 rounded-lg shadow">
-                  <div className="text-2xl font-bold text-red-600">2025</div>
+                  <div className="text-2xl font-bold text-red-600">{isATeam ? 2026 : 2025}</div>
                   <div className="text-sm text-gray-600">Aktif Sezon</div>
                 </div>
               </div>
@@ -238,8 +251,12 @@ const TeamsPage = () => {
                       <th className="text-left py-4 px-4 font-medium text-gray-600">No</th>
                       <th className="text-left py-4 px-4 font-medium text-gray-600">Ad Soyad</th>
                       <th className="text-left py-4 px-4 font-medium text-gray-600">Pozisyon</th>
-                      <th className="text-left py-4 px-4 font-medium text-gray-600">Yaş</th>
-                      <th className="text-left py-4 px-4 font-medium text-gray-600">Deneyim</th>
+                      {!isATeam && (
+                        <>
+                          <th className="text-left py-4 px-4 font-medium text-gray-600">Yaş</th>
+                          <th className="text-left py-4 px-4 font-medium text-gray-600">Deneyim</th>
+                        </>
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -256,8 +273,12 @@ const TeamsPage = () => {
                             {player.position}
                           </span>
                         </td>
-                        <td className="py-4 px-4 text-gray-600">{player.age}</td>
-                        <td className="py-4 px-4 text-gray-600">{player.experience}</td>
+                        {!isATeam && (
+                          <>
+                            <td className="py-4 px-4 text-gray-600">{player.age}</td>
+                            <td className="py-4 px-4 text-gray-600">{player.experience}</td>
+                          </>
+                        )}
                       </tr>
                     ))}
                   </tbody>

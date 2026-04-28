@@ -26,40 +26,35 @@ const HomePage = () => {
   // Yaklaşan maçlar
   const upcomingMatches = [
     {
-      id: 1,
+      id: 8,
       team: "A Takım",
-      opponent: "Vadı Spor",
-      date: "23 Ağustos 2025",
-      time: "18:00",
-      venue: "Turnuva Sahası",
-      league: "18. Amatör Turnuva"
+      homeTeam: "Üsküdar İcadiye",
+      opponent: "Kartal Topselvi Yıldız Spor Kulübü",
+      date: "3 Mayıs 2026",
+      time: "15:00",
+      venue: "Selimiye Stadı",
+      league: "2. Amatör Lig - 8. Hafta",
+      isHome: true
     },
     {
-      id: 2,
+      id: 9,
       team: "A Takım",
-      opponent: "Üsküdar Altınşehir",
-      date: "29 Ağustos 2025",
-      time: "20:00",
-      venue: "Turnuva Sahası",
-      league: "18. Amatör Turnuva"
-    },
-    {
-      id: 3,
-      team: "A Takım",
-      opponent: "Ünalan S.K.",
-      date: "6 Eylül 2025",
-      time: "18:00",
-      venue: "Turnuva Sahası",
-      league: "18. Amatör Turnuva"
+      homeTeam: "Maltepe Fındıklı Spor",
+      opponent: "Üsküdar İcadiye",
+      date: "Tarih Belirlenmedi",
+      time: "",
+      venue: "TBD",
+      league: "2. Amatör Lig - 9. Hafta",
+      isHome: false
     }
   ];
 
   // Takım istatistikleri
   const teamStats = [
-    { label: "A Takım", value: "23", description: "Aktif Oyuncu" },
+    { label: "A Takım", value: "27", description: "Aktif Oyuncu" },
     { label: "U18 Takımı", value: "6", description: "Genç Yetenek" },
     { label: "U16 Takımı", value: "18", description: "Gelecek Yıldızlar" },
-    { label: "Toplam", value: "47", description: "Kulüp Oyuncusu" }
+    { label: "Toplam", value: "51", description: "Kulüp Oyuncusu" }
   ];
 
   return (
@@ -188,13 +183,15 @@ const HomePage = () => {
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h3 className="font-bold text-gray-900">
-                          ÜİSK vs {match.opponent}
+                          {match.homeTeam} vs {match.opponent}
                         </h3>
-                        <p className="text-gray-600 text-sm">{match.venue}</p>
+                        {match.venue !== 'TBD' && (
+                          <p className="text-gray-600 text-sm">{match.venue}</p>
+                        )}
                       </div>
                       <div className="text-right">
                         <p className="font-bold text-red-600">{match.date}</p>
-                        <p className="text-gray-600 text-sm">{match.time}</p>
+                        {match.time && <p className="text-gray-600 text-sm">{match.time}</p>}
                       </div>
                     </div>
                   </div>

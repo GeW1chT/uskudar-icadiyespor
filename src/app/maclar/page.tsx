@@ -11,55 +11,133 @@ const MatchesPage = () => {
   const matches = {
     upcoming: [
       {
-        id: 2,
-        date: '2025-08-29',
-        time: '20:00',
+        id: 8,
+        date: '2026-05-03',
+        time: '15:00',
         homeTeam: 'Üsküdar İcadiye',
-        awayTeam: 'Üsküdar Altınşehir',
-        venue: 'Selimiye Stadyumu',
-        competition: 'Üsküdar Kulüpler Birliği Kupası',
+        awayTeam: 'Kartal Topselvi Yıldız Spor Kulübü',
+        venue: 'Selimiye Stadı',
+        competition: '2. Amatör Lig - 8. Hafta',
         team: 'A Takım',
         isHome: true
       },
       {
-        id: 3,
-        date: '2025-09-06',
-        time: '18:00',
-        homeTeam: 'Üsküdar İcadiye',
-        awayTeam: 'Ünalan S.K.',
-        venue: 'Selimiye Stadyumu',
-        competition: 'Üsküdar Kulüpler Birliği Kupası',
+        id: 9,
+        date: '2026-05-15',
+        time: 'TBD',
+        homeTeam: 'Maltepe Fındıklı Spor',
+        awayTeam: 'Üsküdar İcadiye',
+        venue: 'TBD',
+        competition: '2. Amatör Lig - 9. Hafta',
         team: 'A Takım',
-        isHome: true
+        isHome: false
       }
     ],
     results: [
       {
         id: 1,
-        date: '2025-08-23',
-        time: '18:00',
+        date: '2026-03-28',
+        time: '17:00',
+        homeTeam: 'Kartal Topselvi Yıldız Spor Kulübü',
+        awayTeam: 'Üsküdar İcadiye',
+        venue: 'İBB Yakacık Stadı',
+        competition: '2. Amatör Lig - 1. Hafta',
+        team: 'A Takım',
+        isHome: false,
+        homeScore: 1,
+        awayScore: 0
+      },
+      {
+        id: 2,
+        date: '2026-04-01',
+        time: '12:00',
         homeTeam: 'Üsküdar İcadiye',
-        awayTeam: 'Vadı Spor',
-        venue: 'Beylerbeyi Stadyumu',
-        competition: 'Üsküdar Kulüpler Birliği Kupası',
+        awayTeam: 'Maltepe Fındıklı Spor',
+        venue: 'Selimiye Stadı',
+        competition: '2. Amatör Lig - 2. Hafta',
         team: 'A Takım',
         isHome: true,
-        homeScore: 1,
+        homeScore: 0,
+        awayScore: 1
+      },
+      {
+        id: 3,
+        date: '2026-04-04',
+        time: '16:00',
+        homeTeam: 'Heybeliada',
+        awayTeam: 'Üsküdar İcadiye',
+        venue: 'Kartal 75. Yıl Sahası',
+        competition: '2. Amatör Lig - 3. Hafta',
+        team: 'A Takım',
+        isHome: false,
+        homeScore: 4,
+        awayScore: 1
+      },
+      {
+        id: 4,
+        date: '2026-04-12',
+        time: '16:00',
+        homeTeam: 'Üsküdar İcadiye',
+        awayTeam: 'Feneryolu',
+        venue: 'Selimiye Stadı',
+        competition: '2. Amatör Lig - 4. Hafta',
+        team: 'A Takım',
+        isHome: true,
+        homeScore: 2,
+        awayScore: 1
+      },
+      {
+        id: 5,
+        date: '2026-04-15',
+        time: '16:00',
+        homeTeam: 'Nişantepe Futbol Spor Kulübü',
+        awayTeam: 'Üsküdar İcadiye',
+        venue: 'Ömerli Stadı',
+        competition: '2. Amatör Lig - 5. Hafta',
+        team: 'A Takım',
+        isHome: false,
+        homeScore: null,
+        awayScore: null
+      },
+      {
+        id: 6,
+        date: '2026-04-18',
+        time: '19:00',
+        homeTeam: 'Üsküdar İcadiye',
+        awayTeam: 'Sarıgazispor',
+        venue: 'Selimiye Stadı',
+        competition: '2. Amatör Lig - 6. Hafta',
+        team: 'A Takım',
+        isHome: true,
+        homeScore: 0,
+        awayScore: 9
+      },
+      {
+        id: 7,
+        date: '2026-04-26',
+        time: '15:00',
+        homeTeam: 'Üsküdar Altınşehir Spor',
+        awayTeam: 'Üsküdar İcadiye',
+        venue: 'Selimiye Stadı',
+        competition: '2. Amatör Lig - 7. Hafta',
+        team: 'A Takım',
+        isHome: false,
+        homeScore: 5,
         awayScore: 1
       }
     ]
   };
 
-  // Sadece 1 maç oynandığı duruma göre puan durumu
-    const standings = [
-    { position: 1, team: 'Selami Ali Yeşilsaha', played: 2, won: 2, drawn: 0, lost: 0, gf: 8, ga: 3, gd:  5, points: 6 },
-    { position: 2, team: 'Kemah',   played: 2, won: 1, drawn: 0, lost: 1, gf: 6, ga: 5, gd:  1, points: 3 },
-    { position: 3, team: 'Üsküdar Altınşehir',          played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 2, gd:  1, points: 3 },
-    { position: 4, team: 'Acıbadem Üsküdar',        played: 2, won: 1, drawn: 0, lost: 1, gf: 6, ga: 8, gd: -2, points: 3 },
-    { position: 5, team: 'Üsküdar İcadiye',        played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, points: 1 },
-    { position: 6, team: 'Vadi',        played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, points: 1 },
-    { position: 7, team: 'Ünalan S.K.',        played: 1, won: 0, drawn: 0, lost: 1, gf: 2, ga: 3, gd: -1, points: 0 },
-    { position: 8, team: 'Üsküdar Belediye',        played: 2, won: 0, drawn: 0, lost: 2, gf: 5, ga: 9, gd: -4, points: 0 }
+  // 2. Amatör Lig 18. Grup - 7. Hafta Puan Durumu
+  const standings = [
+    { position: 1, team: 'Maltepe Fındıklı Spor',            played: 7, won: 6, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, points: 19 },
+    { position: 2, team: 'Sarıgazispor',                     played: 7, won: 5, drawn: 0, lost: 2, gf: 0, ga: 0, gd: 0, points: 15 },
+    { position: 3, team: 'Kartal Topselvi Yıldız Spor Kulübü', played: 6, won: 3, drawn: 1, lost: 2, gf: 0, ga: 0, gd: 0, points: 10 },
+    { position: 4, team: 'Üsküdar Altınşehir Spor',          played: 6, won: 3, drawn: 0, lost: 3, gf: 0, ga: 0, gd: 0, points: 9 },
+    { position: 5, team: 'Heybeliada',                       played: 6, won: 3, drawn: 0, lost: 3, gf: 0, ga: 0, gd: 0, points: 9 },
+    { position: 6, team: 'Nişantepe Futbol Spor Kulübü',     played: 3, won: 2, drawn: 0, lost: 1, gf: 0, ga: 0, gd: 0, points: 6 },
+    { position: 7, team: 'Üsküdar İcadiye',                  played: 6, won: 1, drawn: 0, lost: 5, gf: 0, ga: 0, gd: 0, points: 3 },
+    { position: 8, team: 'Feneryolu',                        played: 7, won: 0, drawn: 0, lost: 7, gf: 0, ga: 0, gd: 0, points: 0 }
   ];
 
 
@@ -95,7 +173,8 @@ const MatchesPage = () => {
           </span>
         </div>
         <div className="text-sm text-gray-500">
-          {formatDate(match.date)} • {match.time}
+          {match.date !== 'TBD' ? formatDate(match.date) : 'Tarih Belirlenmedi'}
+          {match.time !== 'TBD' ? ` • ${match.time}` : ''}
         </div>
       </div>
 
@@ -110,7 +189,9 @@ const MatchesPage = () => {
         <div className="px-6 text-center">
           {showScore ? (
             <div className="text-2xl font-bold text-gray-900">
-              {match.homeScore} - {match.awayScore}
+              {match.homeScore !== null && match.awayScore !== null
+                ? `${match.homeScore} - ${match.awayScore}`
+                : '-'}
             </div>
           ) : (
             <div className="text-lg font-bold text-gray-400">VS</div>
@@ -125,10 +206,12 @@ const MatchesPage = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center text-sm text-gray-600">
-        <MapPin size={16} className="mr-1" />
-        {match.venue}
-      </div>
+      {match.venue !== 'TBD' && (
+        <div className="flex items-center justify-center text-sm text-gray-600">
+          <MapPin size={16} className="mr-1" />
+          {match.venue}
+        </div>
+      )}
     </div>
   );
 
@@ -140,7 +223,7 @@ const MatchesPage = () => {
       <section className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Maç Fikstürü</h1>
-          <p className="text-xl text-red-100">18. Amatör Turnuva maç programı</p>
+          <p className="text-xl text-red-100">2. Amatör Lig - 18. Grup maç programı</p>
         </div>
       </section>
 
@@ -149,18 +232,18 @@ const MatchesPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <Trophy className="w-8 h-8 text-red-600 mx-auto mb-3" />
-            <div className="text-2xl font-bold text-gray-900">2</div>
-            <div className="text-sm text-gray-600">Turnuva Pozisyonu</div>
+            <div className="text-2xl font-bold text-gray-900">7.</div>
+            <div className="text-sm text-gray-600">Sıralama (18. Grup)</div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <Target className="w-8 h-8 text-green-600 mx-auto mb-3" />
-            <div className="text-2xl font-bold text-gray-900">0-1-0</div>
+            <div className="text-2xl font-bold text-gray-900">1-0-5</div>
             <div className="text-sm text-gray-600">G-B-M</div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <TrendingUp className="w-8 h-8 text-blue-600 mx-auto mb-3" />
-            <div className="text-2xl font-bold text-gray-900">1:1</div>
-            <div className="text-sm text-gray-600">Gol Averajı</div>
+            <div className="text-2xl font-bold text-gray-900">3 Puan</div>
+            <div className="text-sm text-gray-600">7. Haftadan Sonra</div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <Users className="w-8 h-8 text-purple-600 mx-auto mb-3" />
