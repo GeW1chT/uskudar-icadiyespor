@@ -216,7 +216,7 @@ const HomePage = () => {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">Üsküdar İcadiye Spor Ailesi</h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              1951'den beri Üsküdar'ın gururu olan kulübümüze katılın.
+              1951&apos;den beri Üsküdar&apos;ın gururu olan kulübümüze katılın.
               Gençlerimizi spora yönlendiriyor, gelecek nesillere spor kültürünü aktarıyoruz.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

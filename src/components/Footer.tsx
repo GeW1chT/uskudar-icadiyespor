@@ -19,7 +19,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              1951 yılından beri Üsküdar'ın gururu olan kulübümüz, gençlerin 
+              1951 yılından beri Üsküdar&apos;ın gururu olan kulübümüz, gençlerin
               spora yönlendirilmesi ve spor kültürünün geliştirilmesi amacıyla 
               faaliyet göstermektedir.
             </p>
