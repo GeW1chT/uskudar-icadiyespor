@@ -175,6 +175,15 @@
 - [ ] Giriş, içerik yayınlama, görsel yükleme, mobil form, `.com` canonical/HTTPS ve rollback doğrulama maddelerini ekleyin.
 - [ ] Dokümantasyon doğruluğunu gözden geçirip commit/push: `docs: add production verification checklist`.
 
+### Task 15: Harici yedekleme ve restore güvence hattı
+
+**Files:** `.github/workflows/supabase-backup.yml`, `scripts/backup-storage.mjs`, `docs/backup-and-restore.md`, `.gitignore`.
+
+- [ ] PostgreSQL için custom-format `pg_dump`, private Storage için ayrı dosya yedeği ve SHA-256 bütünlük manifesti oluştur.
+- [ ] Yedeği özel S3-uyumlu depoya her gün 03:30 Türkiye saatinde gönder; 35 günlük lifecycle saklama politikasını zorunlu kıl.
+- [ ] Tüm erişim değerlerini GitHub Actions Secrets'ta tut; yedekleri GitHub'a, loglara veya public depoya yazma.
+- [ ] Ayrı test projesine `pg_restore` ve Storage geri yüklemesiyle en az bir restore doğrulaması çalıştır; dış depo erişimi verilmeden bu görevi bitmiş sayma.
+
 ## Plan Review
 
 - Kapsamın tüm maddeleri Tasks 1–14'te eşlendi: altyapı, RLS/Storage, seed, admin güvenliği, tüm içerik türleri, public geçiş, test, SEO ve yayın.
