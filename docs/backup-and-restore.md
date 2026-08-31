@@ -4,7 +4,7 @@ Yedekleme her gün 03:30 Türkiye saatiyle çalışır. GitHub Actions, PostgreS
 
 ## Gerekli GitHub Actions Secrets
 
-`SUPABASE_DB_URL` (yalnız SSL'li, parolalı doğrudan PostgreSQL bağlantı URL'si), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BACKUP_S3_BUCKET`, `BACKUP_S3_ENDPOINT`, `BACKUP_S3_REGION`, `BACKUP_S3_ACCESS_KEY_ID`, `BACKUP_S3_SECRET_ACCESS_KEY` eklenmelidir. Depo, erişim anahtısının yalnız hedef bucket altında `supabase/` önekine listeleme/yükleme/silme hakkı olan ayrı bir IAM hesabı olmalıdır.
+`SUPABASE_DB_URL` (yalnız SSL'li, parolalı doğrudan PostgreSQL bağlantı URL'si), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BACKUP_S3_BUCKET`, `BACKUP_S3_ENDPOINT`, `BACKUP_S3_REGION`, `BACKUP_S3_ACCESS_KEY_ID`, `BACKUP_S3_SECRET_ACCESS_KEY` eklenmelidir. Backblaze Application Key yalnız hedef bucket için Read/Write ve listeleme yetkili ayrı bir anahtar olmalıdır; anahtarın kendi file-name-prefix kısıtı olmamalıdır. Workflow, S3 `ListObjectsV2` çağrısını kullandığı için Backblaze bu tür prefix kısıtlı anahtarı reddeder. Yedeklerin `supabase/` öneki workflow ve bucket yaşam döngüsü kuralı tarafından korunur.
 
 ## Saklama ve başarısızlık
 
