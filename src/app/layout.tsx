@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://uskudaricadiyespor.com'),
   title: 'Üsküdar İcadiye Spor - Resmi Web Sitesi',
   description: 'Üsküdar İcadiye Spor Kulübü resmi web sitesi. Takım haberleri, maç sonuçları, oyuncu kadroları ve daha fazlası.',
   keywords: 'üsküdar, icadiye, spor, futbol, kulüp, istanbul, süper amatör',
