@@ -63,12 +63,12 @@ jobs:
               exit 1
             fi
             if docker logs supabase-backup-restore-verification 2>&1 | grep --fixed-strings --quiet 'PostgreSQL init process complete; ready for start up.' \
-              && docker exec supabase-backup-restore-verification pg_isready --username postgres --dbname restore_verification >/dev/null 2>&1 \
-              && docker exec supabase-backup-restore-verification psql --dbname restore_verification --set ON_ERROR_STOP=on --command 'SELECT 1;' >/dev/null; then
+              && docker exec supabase-backup-restore-verification pg_isready --host localhost --port 5432 --username postgres --dbname restore_verification >/dev/null 2>&1 \
+              && docker exec supabase-backup-restore-verification psql --username postgres --dbname restore_verification --set ON_ERROR_STOP=on --command 'SELECT 1;' >/dev/null; then
               sleep 3
               if [[ "$(docker inspect --format '{{.State.Running}}' supabase-backup-restore-verification)" == "true" ]] \
-                && docker exec supabase-backup-restore-verification pg_isready --username postgres --dbname restore_verification >/dev/null 2>&1 \
-                && docker exec supabase-backup-restore-verification psql --dbname restore_verification --set ON_ERROR_STOP=on --command 'SELECT 1;' >/dev/null; then
+                && docker exec supabase-backup-restore-verification pg_isready --host localhost --port 5432 --username postgres --dbname restore_verification >/dev/null 2>&1 \
+                && docker exec supabase-backup-restore-verification psql --username postgres --dbname restore_verification --set ON_ERROR_STOP=on --command 'SELECT 1;' >/dev/null; then
                 echo "Isolated PostgreSQL 17 completed initialization and remained ready." >> "$GITHUB_STEP_SUMMARY"
                 exit 0
               fi
@@ -83,11 +83,10 @@ jobs:
         run: |
           set -euo pipefail
           docker exec supabase-backup-restore-verification \
-            psql --dbname restore_verification --set ON_ERROR_STOP=on --command 'CREATE SCHEMA auth; CREATE TABLE auth.users (id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT NULL::uuid; $$; CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN;'
+            psql --username postgres --dbname restore_verification --set ON_ERROR_STOP=on --command 'CREATE SCHEMA auth; CREATE TABLE auth.users (id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT NULL::uuid; $$; CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN;'
           docker run --rm --network container:supabase-backup-restore-verification --volume "$BACKUP_DIR:/backup:ro" postgres:17-alpine \
-            pg_restore --exit-on-error --no-owner --no-privileges \
+            pg_restore --host localhost --port 5432 --username postgres --dbname restore_verification --exit-on-error --no-owner --no-privileges \
             --schema public \
-            --dbname postgresql://postgres@localhost:5432/restore_verification \
             /backup/database.dump
 
       - name: Verify restored schema and table reads
@@ -96,7 +95,7 @@ jobs:
           set -euo pipefail
           for table in profiles teams news players staff matches standings gallery_items site_settings; do
             docker exec supabase-backup-restore-verification \
-              psql --dbname restore_verification --set ON_ERROR_STOP=on --command "SELECT count(*) FROM public.$table;" >/dev/null
+              psql --username postgres --dbname restore_verification --set ON_ERROR_STOP=on --command "SELECT count(*) FROM public.$table;" >/dev/null
           done
           echo "PostgreSQL 17 restore and basic table-read verification passed." >> "$GITHUB_STEP_SUMMARY"
 
