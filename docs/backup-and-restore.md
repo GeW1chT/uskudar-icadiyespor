@@ -12,9 +12,9 @@ Private S3 bucket yaşam döngüsünü `supabase/` öneki için 35 gün sonra si
 
 ## Restore doğrulaması
 
-1. Ayrı bir Supabase test projesi oluşturun; üretim projesine geri yükleme yapmayın.
-2. Özel depodan tek bir yedek klasörünü indirin ve `sha256sum -c SHA256SUMS` çalıştırın.
-3. Test projesinin doğrudan bağlantısına `pg_restore --clean --if-exists --no-owner --dbname "$TEST_DATABASE_URL" database.dump` uygulayın.
+1. Önce GitHub Actions'taki `Verify Supabase backup restore` workflow'unu çalıştırın ve yalnız `supabase/backup-...` biçimindeki backup yolunu girin. Bu workflow, B2'den indirir, SHA-256 bütünlüğünü doğrular ve PostgreSQL 17 geçici container'ında restore ile temel tablo okumalarını test eder; production Supabase'e bağlanmaz.
+2. İlk kez hazırlanan eski manifestlerde runner'a ait mutlak yol varsa workflow, checksum dosyasını yalnız geçici ortamda göreli yola dönüştürerek doğrular. Sonraki backup'lar taşınabilir göreli yol manifesti üretir.
+3. Ayrı bir Supabase test projesine geri yükleme gerekirse, özel depodan tek bir yedek klasörünü indirin ve `sha256sum -c SHA256SUMS` çalıştırın; ardından `pg_restore --clean --if-exists --no-owner --dbname "$TEST_DATABASE_URL" database.dump` uygulayın. Üretim projesine geri yükleme uygulamayın.
 4. `storage` altındaki dosyaları yalnız test projesindeki private `media` bucket'ına service-role anahtarıyla yükleyin.
 5. Sayım, RLS ve Storage erişim testlerini çalıştırın; sonuçları Actions çalıştırmasına ekleyin.
 
