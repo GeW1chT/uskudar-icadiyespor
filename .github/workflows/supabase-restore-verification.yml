@@ -1,0 +1,93 @@
+name: Verify Supabase backup restore
+
+on:
+  workflow_dispatch:
+    inputs:
+      backup_path:
+        description: Backblaze B2 backup path, beginning with supabase/backup-
+        required: true
+        default: supabase/backup-20260831T195702Z
+        type: string
+
+permissions:
+  contents: none
+
+jobs:
+  verify-restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download and verify backup integrity
+        shell: bash
+        env:
+          BACKUP_PATH: ${{ inputs.backup_path }}
+          BACKUP_S3_BUCKET: ${{ secrets.BACKUP_S3_BUCKET }}
+          BACKUP_S3_ENDPOINT: ${{ secrets.BACKUP_S3_ENDPOINT }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.BACKUP_S3_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.BACKUP_S3_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.BACKUP_S3_REGION }}
+          AWS_EC2_METADATA_DISABLED: "true"
+        run: |
+          set -euo pipefail
+          : "${BACKUP_S3_BUCKET:?BACKUP_S3_BUCKET GitHub Actions secret is unavailable}"
+          if [[ ! "$BACKUP_PATH" =~ ^supabase/backup-[0-9]{8}T[0-9]{6}Z$ ]]; then
+            echo "::error::Backup path format is invalid."
+            exit 1
+          fi
+          backup_name="${BACKUP_PATH##*/}"
+          backup_dir="$RUNNER_TEMP/$backup_name"
+          mkdir -p "$backup_dir"
+          aws s3 sync "s3://$BACKUP_S3_BUCKET/$BACKUP_PATH/" "$backup_dir" --endpoint-url "$BACKUP_S3_ENDPOINT" --only-show-errors
+          test -s "$backup_dir/database.dump"
+          test -s "$backup_dir/SHA256SUMS"
+          awk -v marker="$backup_name/" '{ path = $2; position = index(path, marker); if (position > 0) path = substr(path, position + length(marker)); print $1 "  " path }' "$backup_dir/SHA256SUMS" > "$backup_dir/SHA256SUMS.normalized"
+          (cd "$backup_dir" && sha256sum -c SHA256SUMS.normalized)
+          if find "$backup_dir/storage" -type f -print -quit 2>/dev/null | grep -q .; then
+            echo "Storage backup files were found and included in SHA-256 verification." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No Storage backup files were found; the private media bucket was empty at backup time." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "BACKUP_DIR=$backup_dir" >> "$GITHUB_ENV"
+
+      - name: Start isolated PostgreSQL 17
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --detach --name supabase-backup-restore-verification \
+            --env POSTGRES_HOST_AUTH_METHOD=trust \
+            --env POSTGRES_DB=restore_verification \
+            postgres:17-alpine
+          for attempt in {1..30}; do
+            if docker exec supabase-backup-restore-verification pg_isready --username postgres --dbname restore_verification; then
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs supabase-backup-restore-verification
+          exit 1
+
+      - name: Restore into isolated PostgreSQL 17
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker exec supabase-backup-restore-verification \
+            psql --dbname restore_verification --set ON_ERROR_STOP=on --command 'CREATE SCHEMA auth; CREATE TABLE auth.users (id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT NULL::uuid; $$; CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN;'
+          docker run --rm --network container:supabase-backup-restore-verification --volume "$BACKUP_DIR:/backup:ro" postgres:17-alpine \
+            pg_restore --exit-on-error --no-owner --no-privileges \
+            --schema public \
+            --dbname postgresql://postgres@localhost:5432/restore_verification \
+            /backup/database.dump
+
+      - name: Verify restored schema and table reads
+        shell: bash
+        run: |
+          set -euo pipefail
+          for table in profiles teams news players staff matches standings gallery_items site_settings; do
+            docker exec supabase-backup-restore-verification \
+              psql --dbname restore_verification --set ON_ERROR_STOP=on --command "SELECT count(*) FROM public.$table;" >/dev/null
+          done
+          echo "PostgreSQL 17 restore and basic table-read verification passed." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Remove isolated PostgreSQL 17
+        if: always()
+        run: docker rm --force supabase-backup-restore-verification || true
