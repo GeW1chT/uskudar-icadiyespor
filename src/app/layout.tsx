@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata: Metadata = {
+  metadataBase: new URL('https://uskudaricadiyespor.com'),
   title: 'Üsküdar İcadiye Spor - Resmi Web Sitesi',
   description: 'Üsküdar İcadiye Spor Kulübü resmi web sitesi. Takım haberleri, maç sonuçları, oyuncu kadroları ve daha fazlası.',
   keywords: 'üsküdar, icadiye, spor, futbol, kulüp, istanbul, süper amatör',
@@ -54,7 +52,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
-      <body className={inter.className}>
+      <body className="font-sans">
         {children}
       </body>
     </html>

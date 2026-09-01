@@ -18,35 +18,35 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white shadow-xl sticky top-0 z-50">
+    <header className="sticky top-0 z-50 border-b border-red-900/40 bg-gradient-to-r from-red-800 via-red-700 to-red-900 text-white shadow-lg">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex h-14 items-center justify-between sm:h-16">
           {/* Logo ve Takım Adı */}
-          <Link href="/" className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg p-1">
+          <Link href="/" className="flex min-w-0 items-center space-x-2.5 transition-opacity hover:opacity-90 sm:space-x-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white p-1 shadow-lg sm:h-11 sm:w-11">
               <Image
                 src="/logo.png"
                 alt="Üsküdar İcadiye Spor"
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 className="object-contain"
               />
             </div>
-            <div>
-              <h1 className="text-xl font-bold">Üsküdar İcadiye Spor</h1>
-              <p className="text-red-100 text-sm hidden md:block">Resmi Web Sitesi</p>
+            <div className="min-w-0">
+              <h1 className="truncate text-sm font-bold sm:text-lg">Üsküdar İcadiye Spor</h1>
+              <p className="hidden text-sm text-red-100 md:block">Resmi Web Sitesi</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-6">
+          <nav className="hidden items-center gap-1 lg:flex">
             {menuItems.map((item) => {
               const IconComponent = item.icon;
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="flex items-center space-x-1 hover:bg-red-600 px-3 py-2 rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-1 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors hover:bg-white/10 xl:px-3"
                 >
                   <IconComponent size={18} />
                   <span>{item.label}</span>
@@ -58,7 +58,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-red-600 transition-colors"
+            className="rounded-lg p-2 transition-colors hover:bg-white/10 lg:hidden"
             aria-label="Menüyü aç/kapat"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -67,15 +67,15 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-red-700 border-t border-red-600 absolute left-0 right-0 shadow-lg">
-            <nav className="py-4">
+          <div className="absolute left-0 right-0 border-t border-red-600/70 bg-red-800/98 shadow-xl backdrop-blur lg:hidden">
+            <nav className="container mx-auto grid gap-1 px-4 py-3">
               {menuItems.map((item) => {
                 const IconComponent = item.icon;
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className="flex items-center space-x-3 px-4 py-3 hover:bg-red-600 transition-colors"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-white/10"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <IconComponent size={20} />

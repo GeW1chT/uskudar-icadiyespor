@@ -1,0 +1,21 @@
+# Harici Supabase Yedekleme ve Geri Yükleme
+
+Yedekleme her gün 03:30 Türkiye saatiyle çalışır. GitHub Actions, PostgreSQL'i `pg_dump --format=custom` ile ve private `media` bucket'ını ayrı dosyalar olarak alır; hiçbir yedek GitHub'a yazılmaz.
+
+## Gerekli GitHub Actions Secrets
+
+`SUPABASE_DB_URL` (yalnız SSL'li, parolalı doğrudan PostgreSQL bağlantı URL'si), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BACKUP_S3_BUCKET`, `BACKUP_S3_ENDPOINT`, `BACKUP_S3_REGION`, `BACKUP_S3_ACCESS_KEY_ID`, `BACKUP_S3_SECRET_ACCESS_KEY` eklenmelidir. Backblaze Application Key yalnız hedef bucket için Read/Write ve listeleme yetkili ayrı bir anahtar olmalıdır; anahtarın kendi file-name-prefix kısıtı olmamalıdır. Workflow, S3 `ListObjectsV2` çağrısını kullandığı için Backblaze bu tür prefix kısıtlı anahtarı reddeder. Yedeklerin `supabase/` öneki workflow ve bucket yaşam döngüsü kuralı tarafından korunur.
+
+## Saklama ve başarısızlık
+
+Private S3 bucket yaşam döngüsünü `supabase/` öneki için 35 gün sonra silme kuralıyla ayarlayın. Bucket public olmamalı, sürümleme ve varsayılan şifreleme açık olmalıdır. GitHub Actions başarısız durumu açık hata raporudur; repository bildirimlerinde başarısız workflow uyarısını etkinleştirin.
+
+## Restore doğrulaması
+
+1. Önce GitHub Actions'taki `Verify Supabase backup restore` workflow'unu çalıştırın ve yalnız `supabase/backup-...` biçimindeki backup yolunu girin. Bu workflow, B2'den indirir, SHA-256 bütünlüğünü doğrular ve PostgreSQL 17 geçici container'ında restore ile temel tablo okumalarını test eder; production Supabase'e bağlanmaz.
+2. İlk kez hazırlanan eski manifestlerde runner'a ait mutlak yol varsa workflow, checksum dosyasını yalnız geçici ortamda göreli yola dönüştürerek doğrular. Sonraki backup'lar taşınabilir göreli yol manifesti üretir.
+3. Ayrı bir Supabase test projesine geri yükleme gerekirse, özel depodan tek bir yedek klasörünü indirin ve `sha256sum -c SHA256SUMS` çalıştırın; ardından `pg_restore --clean --if-exists --no-owner --dbname "$TEST_DATABASE_URL" database.dump` uygulayın. Üretim projesine geri yükleme uygulamayın.
+4. `storage` altındaki dosyaları yalnız test projesindeki private `media` bucket'ına service-role anahtarıyla yükleyin.
+5. Sayım, RLS ve Storage erişim testlerini çalıştırın; sonuçları Actions çalıştırmasına ekleyin.
+
+Üretimde yanlışlıkla silinme veya Free plan duraklamasında kurtarma, doğrulanmış son yedeği önce test projesine geri yükleyip ardından kontrollü üretim geri yüklemesiyle yapılır.
