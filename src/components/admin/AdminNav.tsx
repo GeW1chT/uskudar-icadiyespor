@@ -20,10 +20,8 @@ export function AdminNav() {
 
   return (
     <>
-      <button type="button" className="fixed right-4 top-4 z-50 rounded-lg bg-slate-900 p-2 text-white lg:hidden" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label="Yönetim menüsünü aç">
-        {open ? <X /> : <Menu />}
-      </button>
-      <aside className={`fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-800 bg-slate-950 p-5 text-slate-100 transition-transform lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b border-slate-200 bg-white/95 px-4 shadow-sm backdrop-blur lg:hidden"><Link href="/admin" className="flex items-center gap-2 text-sm font-bold text-slate-900"><ShieldCheck className="h-5 w-5 text-red-700" /> Yönetim paneli</Link><button type="button" className="rounded-lg bg-slate-900 p-2 text-white" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label="Yönetim menüsünü aç">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button></div>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-72 border-r border-slate-800 bg-slate-950 p-5 text-slate-100 shadow-2xl transition-transform lg:z-40 lg:translate-x-0 lg:shadow-none ${open ? 'translate-x-0' : '-translate-x-full'}`}>
         <Link href="/admin" className="mb-8 flex items-center gap-3 text-lg font-bold" onClick={() => setOpen(false)}>
           <ShieldCheck className="text-red-400" /> Üsküdar İcadiye Spor
         </Link>
@@ -34,7 +32,7 @@ export function AdminNav() {
           })}
         </nav>
       </aside>
-      {open && <button type="button" className="fixed inset-0 z-30 bg-black/50 lg:hidden" onClick={() => setOpen(false)} aria-label="Menüyü kapat" />}
+      {open && <button type="button" className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setOpen(false)} aria-label="Menüyü kapat" />}
     </>
   )
 }
