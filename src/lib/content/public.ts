@@ -27,6 +27,12 @@ export async function getPublicNews(limit?: number) {
   return data ?? []
 }
 
+export async function getPublicNewsBySlug(slug: string) {
+  const supabase = createSupabaseServerClient()
+  const { data } = await supabase.from('news').select('*').eq('slug', slug).eq('status', 'published').maybeSingle()
+  return data
+}
+
 export async function getPublicSettings() {
   const supabase = createSupabaseServerClient()
   const { data } = await supabase.from('site_settings').select('*').eq('id', true).maybeSingle()
