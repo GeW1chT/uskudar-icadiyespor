@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { requireAdmin } from '@/lib/auth/require-admin'
+import { actionErrorMessage, type AdminActionResult } from '@/lib/admin/action-result'
 import { galleryInputSchema, matchInputSchema, newsInputSchema, personInputSchema, settingsInputSchema, teamInputSchema } from '@/lib/validation/content'
 
 const publicPaths = ['/', '/takimlar', '/maclar', '/haberler', '/galeri', '/iletisim']
@@ -17,7 +18,17 @@ function ensureDeleteConfirmation(data: FormData) {
   if (text(data, 'confirmation') !== 'DELETE') throw new Error('Silme işlemini onaylamalısınız.')
 }
 
+async function actionResult(operation: () => Promise<void>): Promise<AdminActionResult> {
+  try {
+    await operation()
+    return { ok: true }
+  } catch (error) {
+    return { ok: false, message: actionErrorMessage(error) }
+  }
+}
+
 export async function saveTeam(data: FormData) {
+  return actionResult(async () => {
   const input = teamInputSchema.parse({ id: text(data, 'id') || undefined, name: text(data, 'name'), slug: text(data, 'slug'), ageGroup: text(data, 'ageGroup'), league: text(data, 'league'), description: text(data, 'description'), activeSeason: text(data, 'activeSeason'), sortOrder: text(data, 'sortOrder') || 0, isActive: checked(data, 'isActive') })
   const { supabase } = await requireAdmin()
   const payload = { name: input.name, slug: input.slug, age_group: input.ageGroup, league: input.league, description: input.description, active_season: input.activeSeason, sort_order: input.sortOrder, is_active: input.isActive }
@@ -25,14 +36,17 @@ export async function saveTeam(data: FormData) {
   const { error } = await query
   if (error) throw new Error('Takım kaydedilemedi.')
   refreshContent()
+  })
 }
 
 export async function deleteTeam(data: FormData) {
+  return actionResult(async () => {
   ensureDeleteConfirmation(data)
   const { supabase } = await requireAdmin()
   const { error } = await supabase.from('teams').delete().eq('id', text(data, 'id'))
   if (error) throw new Error('Bağlı kadro veya maç kaydı bulunan takım silinemez.')
   refreshContent()
+  })
 }
 
 async function savePerson(data: FormData, table: 'players' | 'staff') {
@@ -49,19 +63,22 @@ async function savePerson(data: FormData, table: 'players' | 'staff') {
   refreshContent()
 }
 
-export async function savePlayer(data: FormData) { await savePerson(data, 'players') }
-export async function saveStaff(data: FormData) { await savePerson(data, 'staff') }
+export async function savePlayer(data: FormData) { return actionResult(() => savePerson(data, 'players')) }
+export async function saveStaff(data: FormData) { return actionResult(() => savePerson(data, 'staff')) }
 
 export async function deletePerson(data: FormData) {
+  return actionResult(async () => {
   ensureDeleteConfirmation(data)
   const table = text(data, 'table') === 'staff' ? 'staff' : 'players'
   const { supabase } = await requireAdmin()
   const { error } = await supabase.from(table).delete().eq('id', text(data, 'id'))
   if (error) throw new Error('Kadro kaydı silinemedi.')
   refreshContent()
+  })
 }
 
 export async function saveMatch(data: FormData) {
+  return actionResult(async () => {
   const input = matchInputSchema.parse({ id: text(data, 'id') || undefined, teamId: text(data, 'teamId'), homeTeam: text(data, 'homeTeam'), awayTeam: text(data, 'awayTeam'), competition: text(data, 'competition'), week: text(data, 'week') || undefined, matchDate: text(data, 'matchDate'), kickoffTime: text(data, 'kickoffTime'), stadium: text(data, 'stadium'), homeScore: text(data, 'homeScore') || undefined, awayScore: text(data, 'awayScore') || undefined, status: text(data, 'status'), isHome: checked(data, 'isHome'), isActive: checked(data, 'isActive') })
   const { supabase } = await requireAdmin()
   const payload = { team_id: input.teamId, home_team: input.homeTeam, away_team: input.awayTeam, competition: input.competition, week: input.week, match_date: input.matchDate, kickoff_time: input.kickoffTime, stadium: input.stadium, home_score: input.homeScore, away_score: input.awayScore, status: input.status, is_home: input.isHome, is_active: input.isActive }
@@ -69,17 +86,21 @@ export async function saveMatch(data: FormData) {
   const { error } = await query
   if (error) throw new Error('Maç kaydedilemedi.')
   refreshContent()
+  })
 }
 
 export async function deleteMatch(data: FormData) {
+  return actionResult(async () => {
   ensureDeleteConfirmation(data)
   const { supabase } = await requireAdmin()
   const { error } = await supabase.from('matches').delete().eq('id', text(data, 'id'))
   if (error) throw new Error('Maç silinemedi.')
   refreshContent()
+  })
 }
 
 export async function saveNews(data: FormData) {
+  return actionResult(async () => {
   const input = newsInputSchema.parse({ id: text(data, 'id') || undefined, title: text(data, 'title'), slug: text(data, 'slug'), summary: text(data, 'summary'), content: text(data, 'content'), category: text(data, 'category'), status: text(data, 'status'), publishedAt: text(data, 'publishedAt') })
   const { supabase } = await requireAdmin()
   const payload = { title: input.title, slug: input.slug, summary: input.summary, content: input.content, category: input.category, status: input.status, published_at: input.publishedAt ? new Date(input.publishedAt).toISOString() : null }
@@ -87,17 +108,21 @@ export async function saveNews(data: FormData) {
   const { error } = await query
   if (error) throw new Error('Haber kaydedilemedi.')
   refreshContent()
+  })
 }
 
 export async function deleteNews(data: FormData) {
+  return actionResult(async () => {
   ensureDeleteConfirmation(data)
   const { supabase } = await requireAdmin()
   const { error } = await supabase.from('news').delete().eq('id', text(data, 'id'))
   if (error) throw new Error('Haber silinemedi.')
   refreshContent()
+  })
 }
 
 export async function saveGalleryItem(data: FormData) {
+  return actionResult(async () => {
   const input = galleryInputSchema.parse({ id: text(data, 'id') || undefined, title: text(data, 'title'), description: text(data, 'description'), category: text(data, 'category'), takenAt: text(data, 'takenAt'), sortOrder: text(data, 'sortOrder') || 0, isActive: checked(data, 'isActive') })
   const file = data.get('image')
   if (!(file instanceof File) || file.size === 0 || file.size > 5 * 1024 * 1024 || !['image/jpeg', 'image/png', 'image/webp', 'image/avif'].includes(file.type)) throw new Error('En fazla 5 MB JPEG, PNG, WebP veya AVIF görsel yükleyin.')
@@ -113,9 +138,11 @@ export async function saveGalleryItem(data: FormData) {
     throw new Error('Galeri kaydı kaydedilemedi.')
   }
   refreshContent()
+  })
 }
 
 export async function deleteGalleryItem(data: FormData) {
+  return actionResult(async () => {
   ensureDeleteConfirmation(data)
   const { supabase } = await requireAdmin()
   const id = text(data, 'id')
@@ -124,12 +151,15 @@ export async function deleteGalleryItem(data: FormData) {
   if (error) throw new Error('Galeri kaydı silinemedi.')
   if (item?.image_path) await supabase.storage.from('media').remove([item.image_path])
   refreshContent()
+  })
 }
 
 export async function saveSettings(data: FormData) {
+  return actionResult(async () => {
   const input = settingsInputSchema.parse({ homeHeroTitle: text(data, 'homeHeroTitle'), homeHeroText: text(data, 'homeHeroText'), clubDescription: text(data, 'clubDescription'), address: text(data, 'address'), phone: text(data, 'phone'), email: text(data, 'email'), instagramUrl: text(data, 'instagramUrl'), facebookUrl: text(data, 'facebookUrl'), youtubeUrl: text(data, 'youtubeUrl') })
   const { supabase } = await requireAdmin()
   const { error } = await supabase.from('site_settings').upsert({ id: true, home_hero_title: input.homeHeroTitle, home_hero_text: input.homeHeroText, club_description: input.clubDescription, address: input.address, phone: input.phone, email: input.email, instagram_url: input.instagramUrl, facebook_url: input.facebookUrl, youtube_url: input.youtubeUrl })
   if (error) throw new Error('Site ayarları kaydedilemedi.')
   refreshContent()
+  })
 }
